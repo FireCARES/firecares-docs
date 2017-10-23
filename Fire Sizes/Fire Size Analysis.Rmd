@@ -91,7 +91,7 @@ The full routine used to provide probabilities for departments is described belo
 #              ON f.state=d.state AND;
 #                 f.fdid =d.fdid;
 #
-low.risk <- read.csv("low_risk_2017-10-19.csv")
+low.risk <- read.csv(unz("low_risk.zip", "low_risk_2017-10-19.csv"))
 dz <- aggregate(low.risk[ , c("res_1", "res_2", "res_3")], 
                 with(low.risk, list( year=year, state=state, fdid=fdid, fd_name=fd_name, 
                                      region=region, fd_size=fd_size)), 
