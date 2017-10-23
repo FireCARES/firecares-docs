@@ -1,0 +1,275 @@
+---
+title: "Distribution Over Fire Sizes"
+author: "Dr. Stanley Gilbert"
+date: "10/18/2017"
+output: html_document
+params:
+  save_file: dept_sizes
+  cutoff: 0.01
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Problem
+
+In NFIRS, departments report extent of fire spread for fires. Fire spread is categorized into five categories:
+
+N Fire Spread
+- -----------
+1 Confined to Object of Origin
+2 Confined to Room of Origin
+3 Confined to Floor of Origin
+4 Confined to Building of Origin
+5 Beyond the Building of Origin
+
+Fire spread is a critical element in determining Safe Grades. Some departments are known to have (or have had) default values for fire spread that appear for a disproportionate percentage of their fires. That results in inaccurate scores for those departments.
+
+This analysis is intended to identify departments where fire spread distributions are 'unusual.'
+
+For this analysis, I recode and compress the fire spread data as follows:
+
+N Fire Spread                       Recode  Recode Description
+- --------------------------------- ------- ------------------
+1 Confined to Object of Origin         -    Not in Analysis
+2 Confined to Room of Origin           1    Confined to Room of Origin
+3 Confined to Floor of Origin          2    Confined to Building of Origin
+4 Confined to Building of Origin       2    Confined to Building of Origin
+5 Beyond the Building of Origin        3    Beyond the Building of Origin
+
+"Confined to Object" is excluded because such confined fires are often coded differently. "Confined to Floor" is merged with "Confined to Building" because the "Confined to Floor" code is rare and often not applicable.
+
+# Model
+
+The basic assumption in this model is that the national data set will average out all the local (and potentially error-prone) data sets and be reasonably representative of the underlying fire size distribution. One implicit assumption is that the fire size distribution locally is not that different from the fire size distribution nationally.
+
+The simplest approach to modeling would be to look at a binary comparison (for example, fires confined to the room of origin versus larger fires), estimate the proportion nationally, assume a binomial distribution and see if the number of "small" fires is less than some lower bound for any department. There are two problems with that approach. First, we have three outcomes rather than two. Second, it seems likely that the distribution of fire sizes will be overdispersed: that is, if we were to pick a 99% confidence interval (as an example) based on the binomial distribution to identify potential problem departments, we would expect significantly more than 1% of departments to be identified.
+
+To resolve the first problem, we estimate two models rather than one: one for very large fires (i.e., those that go beyond the structure of origin) versus smaller fires, and a second for "medium" fires (i.e., those that are confined to the structure of origin) versus those confined to the room of origin. It is possible to estimate this as a single simultaneous multinomial model, but it would have made the computation more difficult without significantly simplifying the exposition.
+
+To resolve the second problem what I actually estimate is a beta-binomial model rather than a pure binomial model. Let $i \in \{1...N \}$ be the set of departments. For any department $i$, let $f_i^1$ be the number of fires confined to the room of origin, $f_i^2$ the number of fires confined to the building of origin (including those confined to the room or origin), and $f_i^3=n_i$ the total number of fires in the analysis. 
+
+Then, if $j \in \{1,2\}$, the number of smaller ($f_i^j$) fires is distributed as:
+
+$$f_i^j \sim \mathrm{Bin}(f_i^{j+1},\pi^j),$$
+and 
+
+$$\pi^j \sim \mathrm{Beta}(\alpha^j,\beta^j).$$
+
+So model $j=1$ tests the number of "small" fires relative to the number of medium fires, and model $j=2$ tests the number of "not-large" fires versus the number of "large" fires.
+
+The model is reparameterized so that $S^j=\alpha^j+\beta^j$ and $p^j=\frac{\alpha^j}{S^j}$. Then the compound distribution becomes:
+
+$$\mathrm{P}\{x|n,S^j,p^j\}=\binom{n}{x} \frac{\mathrm{B}(S^j p^j + x, S^j (1-p^j) + n - x)}{\mathrm{B}(S^j p^j, S^j (1 - p^j))}.$$
+
+This is a fairly natural way to parameterize the problem because $p^j$ becomes the best estimate of the probability that a fire has the smaller size, and $S^j$ becomes a 'scale' parameter.
+
+Since for each department we are interested in the probability that their results are "extreme" compared to the national data set, what we compute for each department are the cumulative probabilities. That is, for each department and each pair of fire sizes we compute two values: The probability of getting as many "small" fires _or fewer_ as the department got, and the probability of getting at least as many "large" fires. The first is defined as:
+
+$$\mathrm{Pr}\{x \le f_i^j | f_i^{j+1}, S^j, p^j\} = \sum_{x=0}^{f_i^{j}} \mathrm{P} \{x | f_i^{j+1}, S^j, p^j \},$$
+
+while the second is defined as 
+
+$$\mathrm{Pr}\{x \ge f_i^j | f_i^{j+1},S^j, p^j\} = \sum_{x=f_i^j}^{f_i^{j+1}} \mathrm{P} \{x | f_i^{j+1}, S^j, p^j \}.$$
+
+# Computation
+
+The full routine used to provide probabilities for departments is described below. 
+
+```{r data_prep}
+# This section takes the low.risk data set and collapses it into a form I can use 
+# to estimate the model and compute the department-by-department P-values.
+#
+# Note that I load the low risk data offline to avoid including database connection 
+# information in this file.
+#
+# The data loaded is the result of the following database query:
+#    SELECT * 
+#    FROM nist.low_risk_fires f
+#         LEFT JOIN fdheader d 
+#              ON f.state=d.state AND;
+#                 f.fdid =d.fdid;
+#
+low.risk <- read.csv("low_risk_2017-10-19.csv")
+dz <- aggregate(low.risk[ , c("res_1", "res_2", "res_3")], 
+                with(low.risk, list( year=year, state=state, fdid=fdid, fd_name=fd_name, 
+                                     region=region, fd_size=fd_size)), 
+                function(x) sum(x, na.rm=TRUE))
+dz$N <- with( dz, res_1 + res_2 + res_3 )
+dz <- subset(dz, N > 0)
+n.depts <- nrow( dz )
+dz$p.1a <- NA
+dz$p.1b <- NA
+dz$p.2a <- NA
+dz$p.2b <- NA
+```
+
+```{r estimation, eval=FALSE}
+# This function estimates the beta-binomial models. 
+# Since S > 0 and 0 < p < 1, the function below actually is set up so the 
+# estimation algorithm will estimate the logistic transform of p and the 
+# log transform of S. That significantly improves the stability of the estimation
+# algorithm.
+fn.betabin <- function( params, x1, x2 ){
+  p <- plogis( params[1] )
+  scale <- exp( params[2] )
+  a <- p * scale
+  b <- ( 1 - p ) * scale 
+  n <- length( x1 )
+        
+  ll <- sum( lchoose( x1 + x2, x1 ) ) + 
+        sum( lbeta( x1 + a, x2 + b ) ) - 
+        n * lbeta( a, b )
+}
+
+# These lines estimate the model. 
+# The optim optimizer in R will often fail to converge with default 
+# initial parameters, so I use the Simulated Annealing method (“method='SANN'”) 
+# which almost always returns a reasonable parameter estimate. 
+# Then I use that as input to one of the more usual estimators. 
+# This approach is relatively slow (it returns an answer in a minute or 
+# so rather than in a couple of seconds), but it works and does not require 
+# any add-on packages. Other techniques work as well. I also experimented with 
+# using the maxLik package and with using a MCMC technique with a Gibbs sampler. 
+# Both worked fine. All approaches came up with essentially the same model.
+
+betabin1a <- with(dz, optim(c(0, 0),      fn.betabin, method="SANN", 
+                           control=list(fnscale=-1), x1=res_1, x2=res_2))
+betabin2a <- with(dz, optim(c(0, 0),      fn.betabin, method="SANN", 
+                            control=list(fnscale=-1), x1=res_1 + res_2, x2=res_3))
+betabin1 <- with(dz, optim(betabin1a$par, fn.betabin, method="BFGS", 
+                           control=list(fnscale=-1), x1=res_1, x2=res_2))
+betabin2 <- with(dz, optim(betabin2a$par, fn.betabin, method="BFGS", 
+                             control=list(fnscale=-1), x1=res_1 + res_2, x2=res_3))
+```
+
+```{r dept_values}
+# This function is used to convert the estimated model into a P-value for each department.
+p.betabin.test <- function( S, p, x, low=TRUE ){
+  a <- S * p
+  b <- S * ( 1 - p )
+
+  N <- sum( x )
+
+  p.vals <- exp( lchoose( N, 0:N ) + lbeta( 0:N + a, N:0 + b ) - lbeta( a, b ) )
+  if( low ){
+    prob <- sum( p.vals[ 1:( x[1] + 1 ) ] )
+  } else {
+    prob <- sum( p.vals[ ( x[1] + 1 ):( N + 1 ) ] )
+  }
+  prob
+}
+
+# These lines take the values from the estimated models and compute the 
+# P-values for each department.
+for( i in 1:n.depts ){ 
+  dz$p.1a[i] <- p.betabin.test(exp(betabin1$par[2]), plogis(betabin1$par[1]), 
+                               with(dz, c(res_1[i], res_2[i]))) 
+
+  dz$p.1b[i] <- p.betabin.test(exp(betabin1$par[2]), plogis(betabin1$par[1]), 
+                               with(dz, c(res_1[i], res_2[i])), low=FALSE) 
+
+  dz$p.2a[i] <- p.betabin.test(exp(betabin2$par[2]), plogis(betabin2$par[1]), 
+                               with(dz, c(res_1[i] + res_2[i], res_3[i]))) 
+
+  dz$p.2b[i] <- p.betabin.test(exp(betabin2$par[2]), plogis(betabin2$par[1]), 
+                               with(dz, c(res_1[i] + res_2[i], res_3[i])), low=FALSE)
+}
+```
+
+```{r summaries}
+p.1a <- subset(dz, fd_size == 'size_9' & p.1a < params$cutoff,
+                   select=c("fd_name", "year", "p.1a"))
+p.1a <- p.1a[with(p.1a, order(fd_name, year)),]
+
+p.1b <- subset(dz, fd_size == 'size_9' & p.1b < params$cutoff,
+                   select=c("fd_name", "year", "p.1b"))
+p.1b <- p.1b[with(p.1b, order(fd_name, year)),]
+
+p.2a <- subset(dz, fd_size == 'size_9' & p.2a < params$cutoff,
+                   select=c("fd_name", "year", "p.2a"))
+p.2a <- p.2a[with(p.2a, order(fd_name, year)),]
+
+p.2b <- subset(dz, fd_size == 'size_9' & p.2b < params$cutoff,
+                   select=c("fd_name", "year", "p.2b"))
+p.2b <- p.2b[with(p.2b, order(fd_name, year)),]
+
+names(p.1a) <- names(p.1b) <- names(p.2a) <- names(p.2b) <- c("Department", "Year", "P")
+```
+
+Estimated parameters from the analysis are as follows. Note that larger scale means the estimate is more precise.
+
+Model                      P of Smaller Fire    Scale
+----------------------- -------------------- --------
+Small v Medium Fires    `r formatC(plogis(betabin1$par[1]) * 100, 2, width=18, format="f")` % `r formatC(exp(betabin1$par[2]), 1, width=8, format="f")`
+Not-Large v Large Fires `r formatC(plogis(betabin2$par[1]) * 100, 2, width=18, format="f")` % `r formatC(exp(betabin2$par[2]), 1, width=8, format="f")`
+
+This returns a .csv table, saved as '`r paste(params$save_file, "csv", sep=".")`', with the following structure. 
+
+-----------------------------------------------
+Name      Data Type   Description
+--------- ----------- -------------------------
+year      integer     Year
+
+state     text        State
+
+fdid      integer     FireCARES ID
+
+fd_name   text        Fire Department Name
+
+region    text        Census Region
+
+fd_size   text        Department Size Category
+
+res_1     integer     Number of "Small" Fires
+
+res_2     integer     Number of "Medium" Fires
+
+res_3     integer     Number of "Large" Fires
+
+N         integer     Total Number of fires with reported sizes
+
+p.1a      real        First P Value: If this number is too small, then there are too 
+                      few small fires relative to medium fires
+
+p.1b      real        Second P Value: If this number is too small, then there are too 
+                      many small fires relative to medium fires
+
+p.2a      real        Third P Value: If this number is too small, then there are too 
+                      few not-large fires relative to large fires
+
+p.2b      real        Fourth P Value: If this number is too small, then there are too 
+                      many not-large fires relative to large fires
+-----------------------------------------------
+
+At the `r paste(formatC(params$cutoff * 100, 2, format="f"), '%')` significance level, the following table summarizes the number of department-years with potential problems.
+
+Model                      Too Few   Too Many
+----------------------- ---------- ----------
+Small v Medium Fires    `r formatC(nrow(subset(dz, p.1a < params$cutoff)), width=10, big.mark=",")` `r formatC(nrow(subset(dz, p.1b < params$cutoff)), width=10, big.mark=",")`
+Not-Large v Large Fires `r formatC(nrow(subset(dz, p.2a < params$cutoff)), width=10, big.mark=",")` `r formatC(nrow(subset(dz, p.2b < params$cutoff)), width=10, big.mark=",")`
+
+There are `r nrow(p.1a)` department-years for large departments (> 1 million people) with too few small (versus medium) fires. `r if(nrow(p.1a) > 0) paste("The departments are:")`
+
+`r if(nrow(p.1a) > 0) knitr::kable(p.1a, row.names=FALSE)`
+
+There are `r nrow(p.1b)` department-years for large departments with too many small (versus medium) fires. `r if(nrow(p.1b) > 0) paste("The departments are:")`
+
+`r if(nrow(p.1b) > 0) knitr::kable(p.1b, row.names=FALSE)`
+
+There are `r nrow(p.2a)` department-years for large departments with too few not-large (versus large) fires. `r if(nrow(p.2a) > 0) paste("The departments are:")`
+
+`r if(nrow(p.2a) > 0) knitr::kable(p.2a, row.names=FALSE)`
+
+There are `r nrow(p.2b)` department-years for large departments with too many not-large (versus large) fires. `r if(nrow(p.2b) > 0) paste("The departments are:")`
+
+`r if(nrow(p.2b) > 0) knitr::kable(p.2b, row.names=FALSE)`
+
+```{r cleanup, include=FALSE}
+write.csv(dz, file=paste(params$save_file, "csv", sep="."))
+dept.sizes <- dz
+rm(i,    dz,   n.depts, fn.betabin, p.betabin.test, betabin1a, betabin2a, 
+   p.1a, p.1b, p.2a,    p.2b)
+save.image("dept.sizes.RData")
+```
