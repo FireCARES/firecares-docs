@@ -63,19 +63,19 @@ User and Implementation Guide \\
 \addcontentsline{toc}{chapter}{List of Figures}
 \listoffigures
 
-\cleardoublepage
-\phantomsection
-\addcontentsline{toc}{chapter}{List of Tables}
-\listoftables
-
 \chapter{List of Acronyms}
 
 \begin{tabbing}
 \hspace{1.5in} \= \\
 
-IAFF \> International Assocation of Fire Fighters \\
+DHS \> Department of Homeland Security \\
+FDID \> Fire Department ID \\
+FEMA \> Federal Emergency Management Association \\
+IAFC \> International Association of Fire Chiefs \\
+IAFF \> International Association of Fire Fighters \\
 UL FSRI \> UL Firefighter Safety Research Institute \\
 NIST \> National Institute of Standards and Technology  \\
+NFIRS \> National Fire Incident Reporting System \\
 \end{tabbing}
 
 \newpage
@@ -87,13 +87,17 @@ A fire department's relationship with data and performance should be seen as a c
 Once a department has improved their data quality, they can begin working on having ``good performance.'' Good performance is the end of the quality improvement continuum. For example, improving fire station layouts to reduce turnout time, working with the communications center to streamline call processing, conducting targeted staff training, investing in community risk reduction efforts, and deploying additional/alternate resources within a jurisdiction are all ways to improve performance. 
 A knee jerk reaction to observing a given performance metric for a department may be to say that ``the metric is wrong.'' However, in determining the root cause, it is important to distinguish whether the data used in the calculations are wrong or the performance itself is poor.  
 
-FireCARES (firecares.org) is designed to analyze how fire department resources are deployed to match community risks. Local government decision makers often alter fire department resources faster than fire service leaders can evaluate the potential impact. These decisions can leave a community without sufficient resources to respond to emergency calls safely, efficiently, and effectively. These decisions can have even greater impact on vulnerable populations including the elderly, young children, and people with disabilities. FireCARES - Community Assessment, Response Evaluation System - is an analytical system designed to evaluate community risk and fire department operational performance using national data layers in a geographic-based system. The FireCARES project provides fire departments the ability to add a technical basis to what has historically been an anecdotal discussion regarding community hazards and risks as well as the impact of changes to fire department resource levels.
+FireCARES (firecares.org) is designed to analyze how fire department resources are deployed to match community risks. Local government decision makers often alter fire department resources faster than fire service leaders can evaluate the potential impact. These decisions can leave a community without sufficient resources to respond to emergency calls safely, efficiently, and effectively. These decisions can have even greater impact on vulnerable populations including the elderly, young children, and people with disabilities. FireCARES - Community Assessment, Response Evaluation System - is an analytical system designed to evaluate community risk and fire department operational performance using national data layers in a geographic-based system. The FireCARES project provides fire departments the ability to add a technical basis to what has historically been an anecdotal discussion regarding community hazards and risks as well as the impact of changes to fire department resource levels. FireCARES includes more than a decade of research on structure fires and related injuries and death, as well as building footprints, housing and mobile home units, public health and census data, and locations of vulnerable populations.
 
-The goal of the project is to aggregate national and local data to provide answers that both public and fire service leaders have not previously had. To accomplish this task, FireCARES provides three scores for each community dependent on the available data: the Community Risk Score, the Fire Department Performance Score, and the Safe Grade.
+The goal of the project, which is funded by DHS/FEMA's Assistance to Firefighter's Grants is to aggregate national and local data to provide answers that both public and fire service leaders have not previously had. To accomplish this task, FireCARES provides three scores for each community dependent on the available data: the Community Risk Score, the Fire Department Performance Score, and the Safe Grade.
+
+\chapter{FireCARES Scores}
+
+To assess risk and fire department performance, it was important establish filters that define comparisons between departments. A small rural department does not face the same risks or have the same resources as a major metropolitan department. Therefore, it would be unfair to both departments for that comparison to occur. Currently, department comparison groups are determined by NFPA geographical region (Northeast, South, Midwest, and West) and population protected class (there are 10 NFPA population protected class).
 
 \section{Community Risk}
 
-The community risk score was developed as a function of the socio-demographic and geographic characteristics of the locations (census tracts) of reported structure fires over a seven year period (2008-2014) according to available NFIRS data. The socio-demographic attributes include:
+The community risk score was developed as a function of the socio-demographic and geographic characteristics of the locations (census tracts) of reported structure fires over a seven year period (2008-2014) according to available NFIRS data. The community risk score is determined by assessing variables that are known to contribute to fire like building materials, population demographics, and smokers. The socio-demographic attributes include:
 
 \begin{itemize}
 \item Population characteristics (e.g., size category of the department, population, number of males, age group counts, race counts)
@@ -101,6 +105,25 @@ The community risk score was developed as a function of the socio-demographic an
 \item Household characteristics (e.g., median household income, social vulnerability index)
 \item Geographic region
 \end{itemize}
+
+Community risk assessment scores are calculated for the community as a whole. The community risk scores actually contain three separate scores 
+
+\begin{itemize}
+\item Risk of Fire
+\item Risk of Fire Spread
+\item Risk of Death and Injury
+\end{itemize}
+
+Once scores are determined for each jurisdiction, the jurisdictions are grouped with like areas and populations.  The grouping then allows a comparison of community risk scores between each jurisdiction.  The jurisdictions in the like group are then ranked into the top 25\%, the medium 50\%, and the lower 25\% in their group. Figure~\ref{fig:risk} shows how the community risk scores are displayed.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=.9\columnwidth]{Figures/risk}
+\caption{Community Risk Scores}
+\label{fig:risk}
+\end{figure}
+
+For this example department, the community risk would read like ``the community this department protects is at a high risk for the occurrence of fire.'' Which means that it falls into the bottom quartile (riskiest 25\%) compared to similar jurisdictions.
 
 \section{Fire Department Performance Score}
 
@@ -119,11 +142,22 @@ The second component of this score is the model that defines how the fire depart
 
 When water is put onto a fire, the idealized fire is assumed to have reached the peak size. The growth time for the fire is equivalent to the sum of the tasks the fire department must perform to suppress the fire. This time to suppression is coupled to a simple exponential area damage growth model which is consistent with fire statistics literature. A distribution of fire spread is generated using the same three NFIRS bins discussed above, based on the modeled area of fire damage at the suppression time. Distributions of the room and building sizes are estimated from the American Housing Survey's (AHS) national survey of residential homes. Where available, it is possible to use the AHS metropolitan statistical areas to refine room and building distributions for larger metropolitan areas.
 
-The concept is that there exists an average time correction for all fire department structure fire responses routed through the idealized fire department model that ``corrects'' the fire damage outcomes expected from national standards to the particular outcomes observed by a given fire department. This average correction time is known as the fire department performance score.
+The concept is that there exists an average time correction for all fire department structure fire responses routed through the idealized fire department model that ``corrects'' the fire damage outcomes expected from national standards to the particular outcomes observed by a given fire department. This average correction time is known as the fire department performance score. Figure~\ref{fig:perform} shows the performance score for an example department. The number in center of the dial is performance, or average time in seconds the department is over it's idealized performance. The numbers on the left and right side of the dial are the minimum and maximum performance scores for the departments in the same grouping (location and size).
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=.5\columnwidth]{Figures/performance_score}
+\caption{Performance Score}
+\label{fig:perform}
+\end{figure}
+
+The gauge indicates whether the performance score is good, fair, or poor. First the colors green, yellow, and red indicate good (top 25\%), fair (middle 50\%) and poor (bottom 25\%) quartiles. This gauge compares the department to other like departments and as you can see this department falls in the green quartile. 
+
+\FloatBarrier
 
 \section{Safe Grade}
 
-A community's set of safe grades represent an assessment of the number of fires, of fire spread, and of civilian and firefighter injury or death based on how well the Fire Department resources (performance score) match the level of risks within the community (risk score). There are 3 safe grade comparison categories:
+A community's set of safe grades represent an assessment of the number of fires, of fire spread, and of civilian and firefighter injury or death based on how well the Fire Department resources (performance score) match the level of risks within the community (risk score). Therefore, given your community risk assessment score and given your Fire Department's historic response capabilities and performance, the safe grade is either good, fair, or poor depending on how well you match resources deployed to the risks in the community. There are 3 safe grade comparison categories:
 
 \begin{itemize}
 \item Performance based on number of fires
@@ -131,12 +165,74 @@ A community's set of safe grades represent an assessment of the number of fires,
 \item Performance based on injury and death
 \end{itemize}
 
-There are three Safe Grades in total. The Safe Grades compare the local department against similar departments a based on the risk group (low, medium, high) the community falls within for the respective category (see above).
+For each category, your department is compared against similar departments a based on the risk group (low, medium, high) the community falls within for the respective category (see above). Then based on your performance score relative to those other departments, your safe grade is either good, fair, or poor. A {\it good}, safe grade represents the top 25\%, a {\it fair} safe grade represents the median 50\%, and a {\it poor} safe grade represents the bottom 25\%.
 
+Note that all three scores can be filtered by the hazard level of structures: low, medium and high as defined by NFPA. This is filterable on the department landing page by clicking on the the hazard level bar above the performance score. 
 
-\chapter{Using the Website Features}
+\chapter{Using FireCARES.org}
 
-\section{Fire Department Landing Page}
+When you arrive at \href{https://firecares.org}{FireCARES.org}, begin by typing a fire department name or municipality in the search bar (Figure~\ref{fig:homepage}). 
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=.9\columnwidth]{Figures/homepage}
+\caption{FireCARES Homepage}
+\label{fig:homepage}
+\end{figure}
+
+If you know the department you are looking for, enter it in the search bar and click the dialog box. If you leave the bar blank, results will be returned for all of the departments in FireCARES. As you can see in Figure~\ref{fig:search}, there are 27k+ fire departments in FireCARES. The goal is to have a landing page for every fire department, anywhere in the United States. On the left hand side of the Figure~\ref{fig:search}, you can see that search results can be filtered by department name, FDID, state, geographical region, performance score or protected population. You can also search through all of the field by entering your query in the top box.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=.9\columnwidth]{Figures/search_results}
+\caption{FireCARES Search Results}
+\label{fig:search}
+\end{figure}
+
+\FloatBarrier
+
+Clicking on a department's map image or name will take you to that departments landing page. Note that if you are not logged in, the department page will look like Figure~\ref{fig:department_page_nologin}. Note that of the three scores generated by FireCARES, only the community risk scores are available without login. The fire department performance score and safe grades are only available upon login.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=.9\columnwidth]{Figures/department_page_logout}
+\caption{FireCARES department landing page without login}
+\label{fig:department_page_nologin}
+\end{figure}
+
+\section{Logging In}
+
+Login credentials will be granted to the fire chief, the local union president (when applicable) and/or their designees. If you are an IAFF president or an IAFF officer, you can login using your IMIS credentials. If you an IAFC member, you can login using your Helix credentials. Figure~\ref{fig:login} shows the FireCARES login dialog box.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=.5\columnwidth]{Figures/login}
+\caption{FireCARES Login Dialog}
+\label{fig:login}
+\end{figure}
+
+If you do not have an account, are not sure if you have an account, or IMIS/Helix to not apply, click on the request account box. Enter your email and click the `Check registration' box. If you do have an account, a request for an account from that email address will be made. If an account associated with that email exists, then you will be redirected back to the login page. 
+
+\FloatBarrier
+
+Once an email has been approved, the user will be directed to the registration screen. This dialog box will require you to enter your name, email address, login username and password.  Following entry of these attributes, the user will click the ``Register'' icon (cf. Figure~\ref{fig:login2}). Users will then be able to log into FireCARES.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=.5\columnwidth]{Figures/login2}
+\caption{FireCARES Register Dialog}
+\label{fig:login2}
+\end{figure}
+
+An authenticated user can provide login authority to others in their department as they deem necessary and appropriate, but must keep a record of those authorized. To provide login authority, the Chief and/or local union president will provide a list of eligible emails to FireCARES administration.  Upon receipt, logins will be created for each email provided.
+
+To minimize logins being shared, a robust password should be implemented upon registration. Changing passwords on 90 day cycles is strongly encouraged but will not initially be required.
+
+Once logged in, users will now see the two additional scores (performance score and safe grades) as well as other features for the department.  
+
+\FloatBarrier
+
+\section{Department Details}
 
 \begin{figure}[ht!]
 \centering
@@ -145,10 +241,8 @@ There are three Safe Grades in total. The Safe Grades compare the local departme
 \label{fig:department_page}
 \end{figure}
 
-When viewing your department's page, the first item to check is to ensure that your department's juridictional boundary (the blue outline in Figure~\ref{fig:department_page}) is present and correct. If you notice differences or if boundaries have changed, please send an email to: \href{mailto:boundaries@firecares.org}{Jurisdictional Boundaries}. Be sure to include your Fire Department Name and FDID as it is specified on \href{https://www.FireCARES.org}{FireCARES.org}.
+When viewing your department's page, the first item to check is to ensure that your department's jurisdictional boundary (the blue outline in Figure~\ref{fig:department_page}) is present and correct. If you notice differences or if boundaries have changed, please send an email to: \href{mailto:boundaries@firecares.org}{Jurisdictional Boundaries}. Be sure to include your Fire Department Name and FDID as it is specified on \href{https://www.FireCARES.org}{FireCARES.org}.
 
-
-\subsection{Department Details}
 
 \subsection{Annual Structure Fires}
 
@@ -170,6 +264,11 @@ When viewing your department's page, the first item to check is to ensure that y
 
 \section{Interactive Fires Heat Map}
 
+Click the heat map to view more than 12 years of fires that occur in the community noted by green and yellow areas. This indicates call volume in these areas. High call volume for the brighter colors 
+
+When this feature is turned on, A dashboard also appears below the map. Scroll over the dashboard to select time/date/year to see fire volume distribution in the map. 
+
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=.9\columnwidth]{Figures/interactive_fire_map}
@@ -178,6 +277,11 @@ When viewing your department's page, the first item to check is to ensure that y
 \end{figure}
 
 \section{Interactive Parcel Data}
+
+Parcels with attributes 
+
+Parcels are color coded by hazard level.  Green = low, orange = medium and red= high.  Users can click on any parcel and known building attributes will appear. 
+
 
 \begin{figure}[ht!]
 \centering
@@ -195,14 +299,24 @@ When viewing your department's page, the first item to check is to ensure that y
 \label{fig:fire_predictions}
 \end{figure}
 
-\chapter{Updating Data}
+\chapter{Checking Your Department's Data}
 
+Ensure your department is has the most accurate data.
 
+\begin{enumerate}
+\item Check the jurisdiction border. If your jurisdiction border is not accurate, go to FAQs scroll down to the DATA section and click the link for sending a map to FireCARES.  The map will be used to update your border.
 
+\item Check your fire station list and addresses. If the station list on your department's page is incorrect, go to FAQs scroll down to the DATA section and click the link for sending a station list with addresses.  Your station list will be updated within 24-48 hours.
 
+\item Station Apparatus and Staffing Tables. Department Administrators/Users have necessary permissions to add data in the station apparatus and staffing tables to assure that your data are available for new GIS calculation features being implemented. 
+\end{enumerate}
 
-\section{}
+Fire Data as a source of information. NFIRS data were used as the national source of fire incidents. For each department, the available NFIRS data were loaded and analyzed in the system.  As you can see the most recent data available at the national level are two years old. Departments may send NFIRS transaction files directly to FireCARES for loading to assure that all scores using attributes from this data are up to date.  
 
+NFORS Connection with FireCARES
+As departments link to NFORS data modules, their data are not only real time for NFORS analytics but will also be used to populate the FireCARES system for real time feature updates.  Go to www.NFORS.org or more information on how to access NFORS module at no costs.
+
+\chapter{Project Partners}
 
 
 \end{document}
