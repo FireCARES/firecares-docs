@@ -228,11 +228,11 @@ An authenticated user can provide login authority to others in their department 
 
 To minimize logins being shared, a robust password should be implemented upon registration. Changing passwords on 90 day cycles is strongly encouraged but will not initially be required.
 
-Once logged in, users will now see the two additional scores (performance score and safe grades) as well as other features for the department.  
-
 \FloatBarrier
 
 \section{Department Details}
+
+Once logged in, users will now see the two additional scores (performance score and safe grades) as well as other features for the department. From Figure~\ref{fig:department_page}), you can see that the performance score and safe grades are also active along with the publicly available community risk score.
 
 \begin{figure}[ht!]
 \centering
@@ -241,7 +241,35 @@ Once logged in, users will now see the two additional scores (performance score 
 \label{fig:department_page}
 \end{figure}
 
-When viewing your department's page, the first item to check is to ensure that your department's jurisdictional boundary (the blue outline in Figure~\ref{fig:department_page}) is present and correct. If you notice differences or if boundaries have changed, please send an email to: \href{mailto:boundaries@firecares.org}{Jurisdictional Boundaries}. Be sure to include your Fire Department Name and FDID as it is specified on \href{https://www.FireCARES.org}{FireCARES.org}.
+When viewing your department's page, the first item to check is to ensure that your department's jurisdictional boundary (the blue outline in Figure~\ref{fig:department_page}) is present and correct.  From your boundary, both your protected area and protected population are calculated (cf. Figure~\ref{fig:description}). If you notice differences in your population, your protected area, or if your boundary has changed, please send an email to: \href{mailto:boundaries@firecares.org}{Contact Us}. Be sure to include your Fire Department Name and FDID as it is specified on \href{https://www.FireCARES.org}{FireCARES.org}. If you send an updated GIS shapefile for your jurisdictional boundary, the preferred projection is WGS84, however we can convert if the existing projection is specified.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=.9\columnwidth]{Figures/description}
+\caption{Department protected population and area}
+\label{fig:description}
+\end{figure}
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=.5\columnwidth]{Figures/description2}
+\caption{Department Summary}
+\label{fig:description2}
+\end{figure}
+
+Jurisdiction Summary Description including 
+Department Type (USFA)
+NFPA Region (NFPA)
+FDID (USFA/NFIRS)
+State 
+Phone/Fax (USFA Census)
+Website link
+
+Population Protected (Census)
+Community Size (Census)
+Station List (USGS Map/ Local FD)
+
 
 
 \subsection{Annual Structure Fires}
