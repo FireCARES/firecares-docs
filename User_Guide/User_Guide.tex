@@ -87,7 +87,7 @@ A fire department's relationship with data and performance should be seen as a c
 Once a department has improved their data quality, they can begin working on having ``good performance.'' Good performance is the end of the quality improvement continuum. For example, improving fire station layouts to reduce turnout time, working with the communications center to streamline call processing, conducting targeted staff training, investing in community risk reduction efforts, and deploying additional/alternate resources within a jurisdiction are all ways to improve performance. 
 A knee jerk reaction to observing a given performance metric for a department may be to say that ``the metric is wrong.'' However, in determining the root cause, it is important to distinguish whether the data used in the calculations are wrong or the performance itself is poor.  
 
-FireCARES (firecares.org) is designed to analyze how fire department resources are deployed to match community risks. Local government decision makers often alter fire department resources faster than fire service leaders can evaluate the potential impact. These decisions can leave a community without sufficient resources to respond to emergency calls safely, efficiently, and effectively. These decisions can have even greater impact on vulnerable populations including the elderly, young children, and people with disabilities. FireCARES - Community Assessment, Response Evaluation System - is an analytical system designed to evaluate community risk and fire department operational performance using national data layers in a geographic-based system. The FireCARES project provides fire departments the ability to add a technical basis to what has historically been an anecdotal discussion regarding community hazards and risks as well as the impact of changes to fire department resource levels. FireCARES includes more than a decade of research on structure fires and related injuries and death, as well as building footprints, housing and mobile home units, public health and census data, and locations of vulnerable populations.
+\href{https://firecares.org}{FireCARES} is designed to analyze how fire department resources are deployed to match community risks. Local government decision makers often alter fire department resources faster than fire service leaders can evaluate the potential impact. These decisions can leave a community without sufficient resources to respond to emergency calls safely, efficiently, and effectively. These decisions can have even greater impact on vulnerable populations including the elderly, young children, and people with disabilities. FireCARES - Community Assessment, Response Evaluation System - is an analytical system designed to evaluate community risk and fire department operational performance using national data layers in a geographic-based system. The FireCARES project provides fire departments the ability to add a technical basis to what has historically been an anecdotal discussion regarding community hazards and risks as well as the impact of changes to fire department resource levels. FireCARES includes more than a decade of research on structure fires and related injuries and death, as well as building footprints, housing and mobile home units, public health and census data, and locations of vulnerable populations.
 
 The goal of the project, which is funded by DHS/FEMA's Assistance to Firefighter's Grants is to aggregate national and local data to provide answers that both public and fire service leaders have not previously had. To accomplish this task, FireCARES provides three scores for each community dependent on the available data: the Community Risk Score, the Fire Department Performance Score, and the Safe Grade.
 
@@ -241,7 +241,7 @@ Once logged in, users will now see the two additional scores (performance score 
 \label{fig:department_page}
 \end{figure}
 
-When viewing your department's page, the first item to check is to ensure that your department's jurisdictional boundary (the blue outline in Figure~\ref{fig:department_page}) is present and correct.  From your boundary, both your protected area and protected population are calculated (cf. Figure~\ref{fig:description}). If you notice differences in your population, your protected area, or if your boundary has changed, please send an email to: \href{mailto:boundaries@firecares.org}{Contact Us}. Be sure to include your Fire Department Name and FDID as it is specified on \href{https://www.FireCARES.org}{FireCARES.org}. If you send an updated GIS shapefile for your jurisdictional boundary, the preferred projection is WGS84, however we can convert if the existing projection is specified.
+When viewing your department's page, the first item to check is to ensure that your department's jurisdictional boundary (the blue outline in Figure~\ref{fig:department_page}) is present and correct.  From your boundary, both your protected area and protected population are calculated (cf. Figure~\ref{fig:description}). The protected population is determined using US Census data. If you notice differences in your population, your protected area, or if your boundary has changed, please send an email to: \href{mailto:boundaries@firecares.org}{Contact Us: Boundaries}. Be sure to include your Fire Department Name and FDID as it is specified on \href{https://www.FireCARES.org}{FireCARES.org}. If you send an updated GIS shapefile for your jurisdictional boundary, the preferred projection is WGS84, however we can convert if the existing projection is specified.
 
 \begin{figure}[ht!]
 \centering
@@ -250,6 +250,20 @@ When viewing your department's page, the first item to check is to ensure that y
 \label{fig:description}
 \end{figure}
 
+\FloatBarrier
+
+Additional descriptive features about your department included are:
+
+\begin{itemize}
+\item Department Type [USFA]
+\item NFPA Region [NFPA]
+\item FDID [USFA/NFIRS]
+\item State 
+\item Phone/Fax [USFA Census]
+\item Website link
+\end{itemize}
+
+as shown in Figure~\ref{fig:description2}.
 
 \begin{figure}[ht!]
 \centering
@@ -258,21 +272,11 @@ When viewing your department's page, the first item to check is to ensure that y
 \label{fig:description2}
 \end{figure}
 
-Jurisdiction Summary Description including 
-Department Type (USFA)
-NFPA Region (NFPA)
-FDID (USFA/NFIRS)
-State 
-Phone/Fax (USFA Census)
-Website link
+\FloatBarrier
 
-Population Protected (Census)
-Community Size (Census)
-Station List (USGS Map/ Local FD)
+\section{Annual Structure Fires}
 
-
-
-\subsection{Annual Structure Fires}
+The annual structure fire counts are determined by the data sent by each department to the National Fire Incident Reporting System (NFIRS). In Figure~\ref{fig:structure_fires}, when applicable NFIRS data is shown from 2002 to 2014. The middle column represents those fires which were coded as structure fires within the NFIRS system. The right column shows a color bar where the maximum value is the total number of fire calls in NFIRS for that specific calendar year and the black triangle indicates the number of structure fires. This allows users to visualize consistency in data from year and year in both number of fire calls and percentage of structure fires. Note that data is based on the publicly available NFIRS data. If your department would like to send newer NFIRS data, FireCARES can directly ingest NFIRS exchange files. This can be done using the paper icon in the upper right of your department landing page. 
 
 \begin{figure}[ht!]
 \centering
@@ -283,6 +287,10 @@ Station List (USGS Map/ Local FD)
 
 \section{Station Detail Page}
 
+On each department page, the department's list of stations is included, both the station name and address. If there are missing stations, stations that are no longer active, or if the station list is error, either the station name or station address, please send an email to: \href{mailto:boundaries@firecares.org}{Contact Us: Stations}.
+
+Users can also select a particular station from the station list and that station will open into its own landing page. If first due areas have been provided, the stations first due area will also appear. In this view, users can click the GIS layer box (stack of paper icon in the upper right corner of the map) to turn on `Service Area' to see GIS mapping from that station for 4-minute, 6-minute, and 8-minute travel time. All maps are printable using the printer icon at the top of the page. Figure~\ref{fig:response_area} shows an example service area calculation.
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=.9\columnwidth]{Figures/response_area}
@@ -290,12 +298,20 @@ Station List (USGS Map/ Local FD)
 \label{fig:response_area}
 \end{figure}
 
+In addition to the service area calculations, apparatus and staffing tables can be completed on each station detail page. Departments are requested to complete station tables so that additional GIS features like effective firefighting force assembly times by hazard levels, which is coming soon, can be completed. Figure~\ref{fig:staffing} shows an example of the form for entering your staffing data. Users can select an apparatus type, the number of personnel, and whether advanced life support is provided, when applicable. After entering the data, remember to click save before clicking on the `Add Apparatus' tab.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=.9\columnwidth]{Figures/staffing}
+\caption{Apparatus and Staffing Table}
+\label{fig:staffing}
+\end{figure}
+
+\FloatBarrier
+
 \section{Interactive Fires Heat Map}
 
-Click the heat map to view more than 12 years of fires that occur in the community noted by green and yellow areas. This indicates call volume in these areas. High call volume for the brighter colors 
-
-When this feature is turned on, A dashboard also appears below the map. Scroll over the dashboard to select time/date/year to see fire volume distribution in the map. 
-
+Click the heat map to view more than 12 years of fires that occur in the community. The feature is turned on by hovering over the stack of paper icon in the upper right corner of the map and clicking on the `Fires Heatmap' radio button. Call volume is indicated by green, yellow, and red areas. High call volume is indicated by red areas and low call volume by green. If you zoom in on the map, the coloring will dynamically adjust based on the calls that occurred within the boundaries of the map window. When this feature is turned on, a dashboard will appear below the map (cf. Figure~\ref{fig:interactive_fire_map})
 
 \begin{figure}[ht!]
 \centering
@@ -304,26 +320,31 @@ When this feature is turned on, A dashboard also appears below the map. Scroll o
 \label{fig:interactive_fire_map}
 \end{figure}
 
+Clicking on any of the features on the dashboard will filter the heat map data accordingly. Users can filter the data by time (month, year, hour) or by structure hazard level (low, medium, high, or unknown). Any of these filters can be applied at the same time. To remove a filter, click the respective `x' icon nearest the applied filter.
+
+\FloatBarrier
+
 \section{Interactive Parcel Data}
 
-Parcels with attributes 
-
-Parcels are color coded by hazard level.  Green = low, orange = medium and red= high.  Users can click on any parcel and known building attributes will appear. 
-
+Information specific to each parcel within the community are provided by hovering over the stack of paper icon in the upper right corner of the map and clicking on the `Parcels' radio button. To view the parcels, please zoom in on the map 4 levels. If the parcels do not show up right away, allow a moment for the data to load. Parcels are color coded by hazard level: green = low, orange = medium, and red= high. If you uncheck the `Jurisdiction Boundary' radio button, then you can click on any parcel and any of known building attributes will appear. Figure~\ref{fig:parcel_data} shows an example of a department map with the parcel data loaded.
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=.9\columnwidth]{Figures/parcel_data}
-\caption{Interactive map showing hazard level of parcels as well as pacel specific information such as age, footprint, number of floors.}
+\caption{Interactive map showing hazard level of parcels as well as parcel specific information such as age, footprint, number of floors.}
 \label{fig:parcel_data}
 \end{figure}
 
+\FloatBarrier
+
 \section{Predicted Fire Estimates}
+
+Using historical fire data (NFIRS) and characteristics about your community (community risk) estimates can be made regarding the number of fires, how big those fires may be, and the number of casualties. Figure~\ref{fig:fire_predictions} shows an example dialog box of these predictions.
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=.5\columnwidth]{Figures/fire_predictions}
-\caption{Estimated prediction of number of fires, fire size, and number of causaulties.}
+\caption{Estimated prediction of number of fires, fire size, and number of causalities.}
 \label{fig:fire_predictions}
 \end{figure}
 
@@ -332,19 +353,33 @@ Parcels are color coded by hazard level.  Green = low, orange = medium and red= 
 Ensure your department is has the most accurate data.
 
 \begin{enumerate}
-\item Check the jurisdiction border. If your jurisdiction border is not accurate, go to FAQs scroll down to the DATA section and click the link for sending a map to FireCARES.  The map will be used to update your border.
+\item Check the jurisdiction border. Please send an email to: \href{mailto:boundaries@firecares.org}{Contact Us: Boundaries}. Be sure to include your Fire Department Name and FDID as it is specified on \href{https://www.FireCARES.org}{FireCARES.org}. The map will be used to update your border.
 
-\item Check your fire station list and addresses. If the station list on your department's page is incorrect, go to FAQs scroll down to the DATA section and click the link for sending a station list with addresses.  Your station list will be updated within 24-48 hours.
+\item Check your fire station list and addresses. If the station list on your department's page is incorrect, Please send an email to: \href{mailto:stations@firecares.org}{Contact Us: Stations}. Be sure to include your Fire Department Name and FDID as it is specified on \href{https://www.FireCARES.org}{FireCARES.org}.
 
 \item Station Apparatus and Staffing Tables. Department Administrators/Users have necessary permissions to add data in the station apparatus and staffing tables to assure that your data are available for new GIS calculation features being implemented. 
+
+\item Fire Data as a source of information. NFIRS data were used as the national source of fire incidents. For each department, the available NFIRS data were loaded and analyzed in the system.  As you can see the most recent data available at the national level are two years old. Departments may send NFIRS transaction files directly to FireCARES for loading to assure that all scores using attributes from this data are up to date.  
+
 \end{enumerate}
 
-Fire Data as a source of information. NFIRS data were used as the national source of fire incidents. For each department, the available NFIRS data were loaded and analyzed in the system.  As you can see the most recent data available at the national level are two years old. Departments may send NFIRS transaction files directly to FireCARES for loading to assure that all scores using attributes from this data are up to date.  
-
 NFORS Connection with FireCARES
-As departments link to NFORS data modules, their data are not only real time for NFORS analytics but will also be used to populate the FireCARES system for real time feature updates.  Go to www.NFORS.org or more information on how to access NFORS module at no costs.
+As departments link to NFORS data modules, their data are not only real time for NFORS analytics but will also be used to populate the FireCARES system for real time feature updates. Go to \href{https://nfors.org}{NFORS.org} for more information on how to access NFORS module at no costs.
 
 \chapter{Project Partners}
+
+This work has been funded by DHS/FEMA's Assistance to Firefighter's Grant program. The work is a collaboration among several organizations to make FireCARES a tool for the fire service. The organizations are listed below:
+
+\begin{itemize}
+\item Commission on Fire Accreditation International (CFAI-Risk)
+\item International Association of Fire Fighters (IAFF)
+\item Underwriters Laboratories Firefighter Safety Research Institute (ULFSRI)
+\item National Institute of Standards and Technology (NIST)
+\item Urban Institute
+\item The University of Texas at Austin
+\end{itemize}
+
+Other organizations that have helped with this project include the International Association of Fire Chiefs (IAFC), Metropolitan Fire Chiefs, and Worcester Polytechnic University (WPI).
 
 
 \end{document}
