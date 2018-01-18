@@ -7,6 +7,7 @@
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \usepackage{multirow}
+\usepackage{multicol}
 \usepackage{tocloft}
 \usepackage{xcolor}
 \usepackage{color,soul}
@@ -14,6 +15,9 @@
 \definecolor{linknavy}{rgb}{0,0,0.50196}
 \definecolor{linkred}{rgb}{1,0,0}
 \definecolor{linkblue}{rgb}{0,0,1}
+\definecolor{darkorange}{rgb}{0.81,0.52,0}
+\definecolor{lightorange}{rgb}{0.9,0.58,0}
+\definecolor{brown}{rgb}{0.56,0.36,0}
 \usepackage{float}
 \usepackage{graphpap}
 \usepackage{rotating}
@@ -42,8 +46,11 @@
 
 \usepackage{titlesec}
 \titleformat{\chapter}[hang] 
-{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{1em}{} 
+{\color{darkorange}\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{1em}{}[\titlerule]
 \titlespacing*{\chapter}{0pt}{-30pt}{20pt}
+
+\titleformat*{\section}{\normalfont\Large\bfseries\color{lightorange}}
+\titleformat*{\subsection}{\normalfont\large\bfseries\color{lightorange}}
 
 \newcommand{\nopart}{\expandafter\def\csname Parent-1\endcsname{}} % To fix table of contents in pdf.
 
@@ -65,9 +72,9 @@
 
 \usepackage[pdftex,
         colorlinks=true,
-        urlcolor=linkblue,     % \href{...}{...} external (URL)
-        citecolor=linkred,     % citation number colors
-        linkcolor=linknavy,    % \ref{...} and \pageref{...}
+        urlcolor=brown,     % \href{...}{...} external (URL)
+        citecolor=brown,     % citation number colors
+        linkcolor=brown,    % \ref{...} and \pageref{...}
         pdfproducer={pdflatex},
         pdfpagemode=UseNone,
         bookmarksopen=true,
@@ -93,7 +100,7 @@
 \newcommand{\titlesigs}
 {
 \large
-\flushright{Analyze how fire department resources \\
+\flushright{\em \color{lightorange}Analyze how fire department resources \\
 are deployed to match a community's risks. \\
 \hspace{1in} \\
 }

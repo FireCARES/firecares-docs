@@ -12,9 +12,10 @@
 \chead{}
 \renewcommand{\headrulewidth}{0pt}
 
-\usepackage{draftwatermark}
-\SetWatermarkText{DRAFT}
-\SetWatermarkScale{1}
+
+% \usepackage{draftwatermark}
+% \SetWatermarkText{DRAFT}
+% \SetWatermarkScale{1}
 
 \begin{document}
 \pagenumbering{gobble}
@@ -27,15 +28,14 @@
 \begin{minipage}[t][9in][s]{6.25in}
 \pagenumbering{gobble}
 
-
 \headerB{
 FireCARES \\
 User and Implementation Guide \\
 }
 
 \headerC{
-\flushleft{Version 1.5}
-\flushleft{\today \\}
+\flushleft{\bf \color{darkorange} Version 1.5}
+\flushleft{\bf \color{darkorange} \today \\}
 }
 
 \vfill
@@ -54,36 +54,15 @@ User and Implementation Guide \\
 \newpage
 
 \cleardoublepage
-\phantomsection
-\addcontentsline{toc}{chapter}{Contents}
+% \phantomsection
+\renewcommand*\contentsname{\color{brown}Contents}
 \tableofcontents
-
-\cleardoublepage
-\phantomsection
-\addcontentsline{toc}{chapter}{List of Figures}
-\listoffigures
-
-\chapter{List of Acronyms}
-
-\begin{tabbing}
-\hspace{1.5in} \= \\
-
-DHS \> Department of Homeland Security \\
-ERF \> Effective Response Force \\
-FDID \> Fire Department ID \\
-FEMA \> Federal Emergency Management Association \\
-IAFC \> International Association of Fire Chiefs \\
-IAFF \> International Association of Fire Fighters \\
-UL FSRI \> UL Firefighter Safety Research Institute \\
-NIST \> National Institute of Standards and Technology  \\
-NFIRS \> National Fire Incident Reporting System \\
-\end{tabbing}
 
 \newpage
 \mainmatter
 
 \chapter{Introduction to FireCARES}
-A fire department's relationship with data and performance should be seen as a continuum. Statements regarding department's need to have ``good data'' and ``good performance'' are numerous. However, these statements are not the same thing. The beginning of the quality performance continuum is for a department to have ``good data''. Good data is defined as data that are based on factual incidents, reported accurately, and can be accessed and manipulated easily. It can take a department a long time to work on their data but it's important to recognize their ability to quantify impact before instituting change. Without good data there is no assurance that improvement efforts actually work.
+A fire department's relationship with data and performance should be seen as a continuum. Statements regarding a department's need to have ``good data'' and ``good performance'' are numerous. However, these statements are not the same thing. The beginning of the quality performance continuum is for a department to have ``good data.'' Good data is defined as data that are based on factual incidents, reported accurately, and can be accessed and manipulated easily. It can take a department a long time to work on their data but it is important to recognize their ability to quantify impact before instituting change. Without good data there is no assurance that improvement efforts actually work.
 
 Once a department has improved their data quality, they can begin working on having ``good performance.'' Good performance is the end of the quality improvement continuum. For example, improving fire station layouts to reduce turnout time, working with the communications center to streamline call processing, conducting targeted staff training, investing in community risk reduction efforts, and deploying additional/alternate resources within a jurisdiction are all ways to improve performance. 
 A knee jerk reaction to observing a given performance metric for a department may be to say that ``the metric is wrong.'' However, in determining the root cause, it is important to distinguish whether the data used in the calculations are wrong or the performance itself is poor.  
@@ -94,11 +73,11 @@ The goal of the project, which is funded by DHS/FEMA's Assistance to Firefighter
 
 \chapter{FireCARES Scores}
 
-To assess risk and fire department performance, it was important establish filters that define comparisons between departments. A small rural department does not face the same risks or have the same resources as a major metropolitan department. Therefore, it would be unfair to both departments for that comparison to occur. Currently, department comparison groups are determined by NFPA geographical region (Northeast, South, Midwest, and West) and population protected class (there are 10 NFPA population protected class).
+To assess risk and fire department performance, it was important to establish filters that define comparisons between departments. A small rural department does not face the same risks or have the same resources as a major metropolitan department. Therefore, it would be unfair to both departments for that comparison to occur. Currently, department comparison groups are determined by NFPA geographical region (Northeast, South, Midwest, and West) and population protected class (there are 10 NFPA population protected classes).
 
 \section{Community Risk}
 
-The community risk score was developed as a function of the socio-demographic and geographic characteristics of the locations (census tracts) of reported structure fires over a seven year period (2008-2014) according to available NFIRS data. The community risk score is determined by assessing variables that are known to contribute to fire like building materials, population demographics, and smokers. The socio-demographic attributes include:
+The community risk score was developed as a function of the socio-demographic and geographic characteristics of the locations (census tracts) of reported structure fires over a seven year period (2008-2014) according to available National Fire Incident Reporting System (NFIRS) data. The community risk score is determined by assessing variables that are known to contribute to fire like building materials, population demographics, and smokers. The socio-demographic attributes include:
 
 \begin{itemize}
 \item Population characteristics (e.g., size category of the department, population, number of males, age group counts, race counts)
@@ -124,21 +103,21 @@ Once scores are determined for each jurisdiction, the jurisdictions are grouped 
 \label{fig:risk}
 \end{figure}
 
-For this example department, the community risk would read like ``the community this department protects is at a high risk for the occurrence of fire.'' Which means that it falls into the bottom quartile (riskiest 25\%) compared to similar jurisdictions.
+For this example department, the community risk would read like ``the community this department protects is at a high risk for the occurrence of fire.'' That means the community falls into the bottom quartile (riskiest 25\%) compared to similar jurisdictions.
 
 \section{Fire Department Performance Score}
 
-The goal of the fire department performance score is to assess how well a fire department performs compared to the ``standardized'' version of itself. One component of this metric is the structure fire spread category from the National Fire Incident Reporting System (NFIRS). This category provides information which quantifies the fire spread in a structure from confined to object of origin through spread beyond structure of origin. There are five categories defined in NFIRS, but for this analysis the data are collapsed into three categories: room of origin (lumping object and room together), floor of origin (lumping floor and structure together), and beyond structure of origin. The resulting distribution (count of fires in each of the three bins) of fire spread is the basis for comparison for developing the performance score.
+The goal of the fire department performance score is to assess how well a fire department performs compared to the ``standardized'' version of itself. One component of this metric is the structure fire spread category from NFIRS. This category provides information which quantifies the fire spread in a structure from confined to object of origin through spread beyond structure of origin. There are five categories defined in NFIRS, but for this analysis the data are collapsed into three categories: room of origin (lumping object and room together), floor of origin (lumping floor and structure together), and beyond structure of origin. The resulting distribution (count of fires in each of the three bins) of fire spread is the basis for comparison for developing the performance score.
 
 The second component of this score is the model that defines how the fire department would perform if it were acting as a standard, idealized version of itself. The concept is that there exists a theoretical version of every fire department where all responses meet or exceed the national standards governing department performance. Essentially, a fire department responding to a fire must complete a series of tasks before they can put water on the fire. For purposes of this model these tasks are broken up as follows:
 
 \begin{itemize}
-\item Time to alarm - Time required before the fire is noticed, and some form of action is taken [NIST TN 1661, NIST TN 1797]
-\item Time to dispatch - Time required for dispatch operator to obtain enough information regarding the fire and location to issue a dispatch [NFPA 1710]
-\item Time to turnout - Time required for firefighter turnout [NFPA 1710]
-\item Time to arrival - Transit time required for engine between station and fire location [NFPA 1710, GIS]
+\item Time to alarm - Time required before the fire is noticed, and some form of action is taken [NIST TN 1661~\cite{NIST:Residential}, NIST TN 1797~\cite{NIST:HighRise}]
+\item Time to dispatch - Time required for dispatch operator to obtain enough information regarding the fire and location to issue a dispatch [NFPA 1710/1720~\cite{nfpa_1710,nfpa_1720}]
+\item Time to turnout - Time required for firefighter turnout [NFPA 1710/1720~\cite{nfpa_1710,nfpa_1720}]
+\item Time to arrival - Transit time required for engine between station and fire location [NFPA 1710/1720~\cite{nfpa_1710,nfpa_1720}, GIS]
 \item Time to ascend - Transit time required for firefighters to ascend to the staging floor for fires in buildings. Data for ascent was gathered from timed 27-story climb experiments with 35 firefighters of varying age, height, weight, and gender. Note this parameter is only enacted when staging would occur above ground level.
-\item Time to suppress - Time required for firefighters on-scene to put water onto fire (includes size-up, hose connection, etc.) [NIST TN 1661, NIST TN 1797]
+\item Time to suppress - Time required for firefighters on-scene to put water onto fire (includes size-up, hose connection, etc.) [NIST TN 1661~\cite{NIST:Residential}, NIST TN 1797~\cite{NIST:HighRise}]
 \end{itemize}
 
 When water is put onto a fire, the idealized fire is assumed to have reached the peak size. The growth time for the fire is equivalent to the sum of the tasks the fire department must perform to suppress the fire. This time to suppression is coupled to a simple exponential area damage growth model which is consistent with fire statistics literature. A distribution of fire spread is generated using the same three NFIRS bins discussed above, based on the modeled area of fire damage at the suppression time. Distributions of the room and building sizes are estimated from the American Housing Survey's (AHS) national survey of residential homes. Where available, it is possible to use the AHS metropolitan statistical areas to refine room and building distributions for larger metropolitan areas.
@@ -166,9 +145,9 @@ A community's set of safe grades represent an assessment of the number of fires,
 \item Performance based on injury and death
 \end{itemize}
 
-For each category, your department is compared against similar departments a based on the risk group (low, medium, high) the community falls within for the respective category (see above). Then based on your performance score relative to those other departments, your safe grade is either good, fair, or poor. A {\it good}, safe grade represents the top 25\%, a {\it fair} safe grade represents the median 50\%, and a {\it poor} safe grade represents the bottom 25\%.
+For each category, your department is compared against similar departments and based on the risk group (low, medium, high) the community falls within for the respective category (see above). Then based on your performance score relative to those other departments, your safe grade is either good, fair, or poor. A {\it good}, safe grade represents the top 25\%, a {\it fair} safe grade represents the median 50\%, and a {\it poor} safe grade represents the bottom 25\%.
 
-Note that all three scores can be filtered by the hazard level of structures: low, medium and high as defined by NFPA. This is filterable on the department landing page by clicking on the the hazard level bar above the performance score. 
+Note that all three scores can be filtered by the hazard level of structures: low, medium, and high as defined by NFPA. This is filterable on the department landing page by clicking on the the hazard level bar above the performance score. 
 
 \chapter{Using FireCARES.org}
 
@@ -233,7 +212,7 @@ To minimize logins being shared, a robust password should be implemented upon re
 
 \section{Department Details}
 
-Once logged in, users will now see the two additional scores (performance score and safe grades) as well as other features for the department. From Figure~\ref{fig:department_page}), you can see that the performance score and safe grades are also active along with the publicly available community risk score.
+Once logged in, users will now see the two additional scores (performance score and safe grades) as well as other features for the department. From Figure~\ref{fig:department_page}, you can see that the performance score and safe grades are also active along with the publicly available community risk score.
 
 \begin{figure}[ht!]
 \centering
@@ -253,7 +232,7 @@ When viewing your department's page, the first item to check is to ensure that y
 
 \FloatBarrier
 
-Additional descriptive features about your department included are:
+Additional descriptive features about your department are:
 
 \begin{itemize}
 \item Department Type [USFA]
@@ -277,7 +256,7 @@ as shown in Figure~\ref{fig:description2}.
 
 \section{Annual Structure Fires}
 
-The annual structure fire counts are determined by the data sent by each department to the National Fire Incident Reporting System (NFIRS). In Figure~\ref{fig:structure_fires}, when applicable NFIRS data is shown from 2002 to 2014. The middle column represents those fires which were coded as structure fires within the NFIRS system. The right column shows a color bar where the maximum value is the total number of fire calls in NFIRS for that specific calendar year and the black triangle indicates the number of structure fires. This allows users to visualize consistency in data from year and year in both number of fire calls and percentage of structure fires. Note that data is based on the publicly available NFIRS data. If your department would like to send newer NFIRS data, FireCARES can directly ingest NFIRS exchange files. This can be done using the paper icon in the upper right of your department landing page. 
+The annual structure fire counts are determined by the data sent by each department to the National Fire Incident Reporting System (NFIRS). In Figure~\ref{fig:structure_fires}, when available, NFIRS data is shown from 2002 to 2014. The middle column represents those fires which were coded as structure fires within the NFIRS system. The right column shows a color bar where the maximum value is the total number of fire calls in NFIRS for that specific calendar year and the black triangle indicates the number of structure fires. This allows users to visualize consistency in data from year to year in both number of fire calls and percentage of structure fires. Note that data is based on the publicly available NFIRS data. If your department would like to send newer NFIRS data, FireCARES can directly ingest NFIRS exchange files. This can be done using the paper icon in the upper right of your department landing page. 
 
 \begin{figure}[ht!]
 \centering
@@ -299,7 +278,7 @@ Users can also select a particular station from the station list and that statio
 \label{fig:response_area}
 \end{figure}
 
-In addition to the service area calculations, apparatus and staffing tables can be completed on each station detail page. Departments are requested to complete station tables so that additional GIS features like effective response force (ERF) assembly times by hazard levels, which is coming soon, can be completed. The ERF is calculated by hazard levels. Figure~\ref{fig:staffing} shows an example of the form for entering your staffing data. Users can select an apparatus type, the number of personnel, and whether advanced life support is provided, when applicable. After entering the data, remember to click save before clicking on the `Add Apparatus' tab.
+In addition to the service area calculations, apparatus and staffing tables can be completed on each station detail page. Departments are requested to complete station tables so that additional GIS features like effective response force (ERF) assembly times by hazard levels, which is coming soon, can be completed. The ERF is calculated by hazard levels. Figure~\ref{fig:staffing} shows an example of the form for entering your staffing data. Users can select an apparatus type, the number of personnel, and whether advanced life support is provided, when applicable. After entering the data, remember to click `Save' before clicking on the `Add Apparatus' tab.
 
 \begin{figure}[ht!]
 \centering
@@ -321,13 +300,13 @@ Click the heat map to view more than 12 years of fires that occur in the communi
 \label{fig:interactive_fire_map}
 \end{figure}
 
-Clicking on any of the features on the dashboard will filter the heat map data accordingly. Users can filter the data by time (month, year, hour) or by structure hazard level (low, medium, high, or unknown). Any of these filters can be applied at the same time. To remove a filter, click the respective `x' icon nearest the applied filter.
+Clicking on any of the features on the dashboard will filter the heat map data accordingly. Users can filter the data by time (month, year, hour) or by structure hazard level (low, medium, high, or unknown). Any of these filters can be applied at the same time. To remove a filter, click the respective `x' icon nearest the applied filter. The filters include history, month, day, hour, and hazard.
 
 \FloatBarrier
 
 \section{Interactive Parcel Data}
 
-Information specific to each parcel within the community are provided by hovering over the stack of paper icon in the upper right corner of the map and clicking on the `Parcels' radio button. To view the parcels, please zoom in on the map 4 levels. If the parcels do not show up right away, allow a moment for the data to load. Parcels are color coded by hazard level: green = low, orange = medium, and red= high. If you uncheck the `Jurisdiction Boundary' radio button, then you can click on any parcel and any of known building attributes will appear. Figure~\ref{fig:parcel_data} shows an example of a department map with the parcel data loaded.
+Data specific to each parcel within the community are provided by hovering over the stack of paper icon in the upper right corner of the map and clicking on the `Parcels' radio button. To view the parcels, please zoom in on the map 4 levels. If the parcels do not show up right away, allow a moment for the data to load. Parcels are color coded by hazard level: green = low, orange = medium, and red= high. If you uncheck the `Jurisdiction Boundary' radio button, then you can click on any parcel and any of the known parcel attributes will appear. Figure~\ref{fig:parcel_data} shows an example of a department map with the parcel data loaded.
 
 \begin{figure}[ht!]
 \centering
@@ -340,7 +319,7 @@ Information specific to each parcel within the community are provided by hoverin
 
 \section{Predicted Fire Estimates}
 
-Using historical fire data (NFIRS) and characteristics about your community (community risk) estimates can be made regarding the number of fires, how big those fires may be, and the number of casualties. Figure~\ref{fig:fire_predictions} shows an example dialog box of these predictions.
+Using historical fire data (NFIRS) and characteristics about your community (community risk), estimates can be made regarding the number of fires, how big those fires may be, and the number of casualties. Figure~\ref{fig:fire_predictions} shows an example dialog box of these predictions.
 
 \begin{figure}[ht!]
 \centering
@@ -356,7 +335,7 @@ Ensure that your department has the most accurate data.
 \begin{enumerate}
 \item Check the jurisdiction border. Please send an email to: \href{mailto:boundaries@firecares.org}{Contact Us: Boundaries}. Be sure to include your Fire Department Name and FDID as it is specified on \href{https://www.FireCARES.org}{FireCARES.org}. The map will be used to update your border.
 
-\item Check your fire station list and addresses. If the station list on your department's page is incorrect, Please send an email to: \href{mailto:stations@firecares.org}{Contact Us: Stations}. Be sure to include your Fire Department Name and FDID as it is specified on \href{https://www.FireCARES.org}{FireCARES.org}.
+\item Check your fire station list and corresponding addresses. If the station list on your department's page is incorrect, Please send an email to: \href{mailto:stations@firecares.org}{Contact Us: Stations}. Be sure to include your Fire Department Name and FDID as it is specified on \href{https://www.FireCARES.org}{FireCARES.org}.
 
 \item Station Apparatus and Staffing Tables. Department Administrators/Users have necessary permissions to add data in the station apparatus and staffing tables to assure that your data are available for new GIS calculation features being implemented. 
 
@@ -364,8 +343,7 @@ Ensure that your department has the most accurate data.
 
 \end{enumerate}
 
-NFORS Connection with FireCARES
-As departments link to NFORS data modules, their data are not only real time for NFORS analytics but will also be used to populate the FireCARES system for real time feature updates. Go to \href{https://nfors.org}{NFORS.org} for more information on how to access NFORS module at no costs.
+Connect FireCARES to your NFORS data. As departments link to NFORS data modules, their data are not only real time for NFORS analytics but can also be used to populate the FireCARES system for real time feature updates. Go to \href{https://nfors.org}{NFORS.org} for more information on how to access NFORS module at no costs.
 
 \chapter{Project Partners}
 
@@ -382,5 +360,22 @@ This work has been funded by DHS/FEMA's Assistance to Firefighter's Grant progra
 
 Other organizations that have helped with this project include the International Association of Fire Chiefs (IAFC), Metropolitan Fire Chiefs, and Worcester Polytechnic University (WPI).
 
+\chapter{List of Acronyms}
+
+\begin{tabbing}
+\hspace{1.5in} \= \\
+
+DHS \> Department of Homeland Security \\
+ERF \> Effective Response Force \\
+FDID \> Fire Department ID \\
+FEMA \> Federal Emergency Management Agency \\
+IAFC \> International Association of Fire Chiefs \\
+IAFF \> International Association of Fire Fighters \\
+UL FSRI \> UL Firefighter Safety Research Institute \\
+NIST \> National Institute of Standards and Technology  \\
+NFIRS \> National Fire Incident Reporting System \\
+\end{tabbing}
+
+\bibliography{firecares}
 
 \end{document}
