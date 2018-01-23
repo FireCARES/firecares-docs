@@ -5,6 +5,9 @@
 \renewcommand{\chaptername}{}
 \renewcommand{\bibname}{References}
 
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \lhead{}
@@ -25,43 +28,92 @@
 
 \frontmatter
 
-\begin{minipage}[t][9in][s]{6.25in}
+\begin{minipage}{1.0\textwidth}
+\pagecolor{fc_blue}
 \pagenumbering{gobble}
 
-\headerB{
-FireCARES \\
-User and Implementation Guide \\
+\vspace{1cm}
+\centering
+\includegraphics[width=2.5in]{Figures/firecares-header-logo_2}
+\noindent\makebox[\linewidth]{\color{white}\rule{.5\paperwidth}{0.6pt}}
+
+\Huge \color{fc_orange} User and Implementation Guide \\
+
+\vspace{0.5cm}
+
+\large{\color{white} Version: 1.5  \hspace{1cm} Compilation Date: \today \\}
+
+\vspace{4cm}
+
+{\Large \em \color{fc_orange}Analyze how fire department resources \\
+are deployed to match a community's risks. \\
 }
-
-\headerC{
-\flushleft{\bf \color{darkorange} Version 1.5}
-\flushleft{\bf \color{darkorange} \today \\}
-}
-
-\vfill
-
-\flushright{\includegraphics[width=2in]{Figures/firecares-header-logo}}
-
-\titlesigs
-
 \end{minipage}
 
-\frontmatter
 
-\pagestyle{plain}
+\frontmatter
+\pagecolor{white}
+
+\newpage
+\hspace{5in}
+\newpage
+
+\pagestyle{fancy}{
+\fancyhf{}
+\fancyhead[]{%
+   \begin{tikzpicture}[overlay, remember picture]%
+   \fill[fc_blue] (current page.north west) rectangle ($(current page.north east)+(0,-.5in)$);
+   \node[anchor=north west, text=white, font=\Large\scshape, minimum size=1in, inner xsep=5mm] at (current page.north west) {};
+   \end{tikzpicture}
+}
+\fancyfoot[C]{
+   \begin{tikzpicture}[overlay, remember picture]%
+   \fill[fc_orange] (current page.south west) rectangle ($(current page.south east)+(0,.5in)$);
+   \node[anchor=south west, text=black, minimum size=.5in] at (current page.south west) {\thepage};
+   \end{tikzpicture}
+}}
+
+
+\fancypagestyle{plain}{
+\fancyhf{}%
+% \fancyfoot[C]{\thepage\ of \pageref{LastPage}}%
+\fancyhead[]{
+   \begin{tikzpicture}[overlay, remember picture]% 
+   \fill[fc_blue] (current page.north west) rectangle ($(current page.north east)+(0,-.5in)$);
+   \node[anchor=north west, text=white, font=\Large\scshape, minimum size=1in, inner xsep=5mm] at (current page.north west) {};
+   \end{tikzpicture}
+}
+\fancyfoot[C]{
+   \begin{tikzpicture}[overlay, remember picture]%
+   \fill[fc_orange] (current page.south west) rectangle ($(current page.south east)+(0,.5in)$);
+   \node[anchor=south west, text=black, minimum size=.5in] at (current page.south west) {\thepage};
+   \end{tikzpicture}
+}}
+
+
 \pagenumbering{roman}
 
 \newpage
 
 \cleardoublepage
+
+
 % \phantomsection
-\renewcommand*\contentsname{\color{brown}Contents}
+
+\renewcommand*\contentsname{\color{fc_blue}Contents}
 \tableofcontents
+
+\hypersetup{ 
+    linkcolor=fc_orange,         % moved after \tableofcontents
+    filecolor=fc_orange,      % 
+    urlcolor=fc_orange,           %
+}    
 
 \newpage
 \mainmatter
 
 \chapter{Introduction to FireCARES}
+
 A fire department's relationship with data and performance should be seen as a continuum. Statements regarding a department's need to have ``good data'' and ``good performance'' are numerous. However, these statements are not the same thing. The beginning of the quality performance continuum is for a department to have ``good data.'' Good data is defined as data that are based on factual incidents, reported accurately, and can be accessed and manipulated easily. It can take a department a long time to work on their data but it is important to recognize their ability to quantify impact before instituting change. Without good data there is no assurance that improvement efforts actually work.
 
 Once a department has improved their data quality, they can begin working on having ``good performance.'' Good performance is the end of the quality improvement continuum. For example, improving fire station layouts to reduce turnout time, working with the communications center to streamline call processing, conducting targeted staff training, investing in community risk reduction efforts, and deploying additional/alternate resources within a jurisdiction are all ways to improve performance. 
@@ -72,6 +124,7 @@ A knee jerk reaction to observing a given performance metric for a department ma
 The goal of the project, which is funded by DHS/FEMA's Assistance to Firefighter's Grants is to aggregate national and local data to provide answers that both public and fire service leaders have not previously had. To accomplish this task, FireCARES provides three scores for each community dependent on the available data: the Community Risk Score, the Fire Department Performance Score, and the Safe Grade.
 
 \chapter{FireCARES Scores}
+
 
 To assess risk and fire department performance, it was important to establish filters that define comparisons between departments. A small rural department does not face the same risks or have the same resources as a major metropolitan department. Therefore, it would be unfair to both departments for that comparison to occur. Currently, department comparison groups are determined by NFPA geographical region (Northeast, South, Midwest, and West) and population protected class (there are 10 NFPA population protected classes).
 
@@ -377,5 +430,7 @@ NFIRS \> National Fire Incident Reporting System \\
 \end{tabbing}
 
 \bibliography{firecares}
+
+\chapter*{Notes}
 
 \end{document}
