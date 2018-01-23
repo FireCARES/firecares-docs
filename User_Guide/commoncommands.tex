@@ -16,8 +16,9 @@
 \definecolor{linkred}{rgb}{1,0,0}
 \definecolor{linkblue}{rgb}{0,0,1}
 \definecolor{darkorange}{rgb}{0.81,0.52,0}
-\definecolor{lightorange}{rgb}{0.9,0.58,0}
+\definecolor{fc_orange}{rgb}{0.94,0.59,0.14}
 \definecolor{brown}{rgb}{0.56,0.36,0}
+\definecolor{fc_blue}{rgb}{0.27,.36,0.48}
 \usepackage{float}
 \usepackage{graphpap}
 \usepackage{rotating}
@@ -46,11 +47,11 @@
 
 \usepackage{titlesec}
 \titleformat{\chapter}[hang] 
-{\color{darkorange}\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{1em}{}[\titlerule]
+{\color{fc_blue}\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{1em}{}[\titlerule]
 \titlespacing*{\chapter}{0pt}{-30pt}{20pt}
 
-\titleformat*{\section}{\normalfont\Large\bfseries\color{lightorange}}
-\titleformat*{\subsection}{\normalfont\large\bfseries\color{lightorange}}
+\titleformat*{\section}{\normalfont\Large\bfseries\color{fc_blue}}
+\titleformat*{\subsection}{\normalfont\large\bfseries\color{fc_blue}}
 
 \newcommand{\nopart}{\expandafter\def\csname Parent-1\endcsname{}} % To fix table of contents in pdf.
 
@@ -72,14 +73,20 @@
 
 \usepackage[pdftex,
         colorlinks=true,
-        urlcolor=brown,     % \href{...}{...} external (URL)
-        citecolor=brown,     % citation number colors
-        linkcolor=brown,    % \ref{...} and \pageref{...}
+        urlcolor=fc_orange,     % \href{...}{...} external (URL)
+        citecolor=fc_orange,     % citation number colors
+        linkcolor=fc_orange,    % \ref{...} and \pageref{...}
         pdfproducer={pdflatex},
         pdfpagemode=UseNone,
         bookmarksopen=true,
         plainpages=false,
         verbose]{hyperref}
+
+\renewcommand{\cftchapfont}{\hypersetup{linkcolor=fc_blue}}
+\renewcommand{\cftsecfont}{\hypersetup{linkcolor=black}}
+\renewcommand{\cftsubsecfont}{\hypersetup{linkcolor=black}}
+\renewcommand{\cftsubsubsecfont}{\hypersetup{linkcolor=black}}
+
 
 \setlength{\textwidth}{6.5in}
 \setlength{\textheight}{9.0in}
@@ -96,28 +103,6 @@
 \setlength{\cftfignumwidth}{0.45in}
 \setlength{\cfttabnumwidth}{0.45in}
 \setlength{\parskip}{1em}
-
-\newcommand{\titlesigs}
-{
-\large
-\flushright{\em \color{lightorange}Analyze how fire department resources \\
-are deployed to match a community's risks. \\
-\hspace{1in} \\
-}
-}
-
-\newcommand{\headerB}[1]{
-\flushleft{
-\fontsize{28}{33.6}\selectfont
-\bf{#1}
-}
-}
-
-\newcommand{\headerC}[1]{
-\vspace{.5in}
-\flushright{\fontsize{14}{16.8}\selectfont
-#1}
-}
 
 % \newcolumntype{L}{>{\centering\arraybackslash}m{4cm}}
 
