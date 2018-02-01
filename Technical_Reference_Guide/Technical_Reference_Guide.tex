@@ -1,0 +1,158 @@
+\documentclass[12pt,oneside]{book}
+\input{commoncommands}
+
+% Rename chapter headings
+\renewcommand{\chaptername}{}
+\renewcommand{\bibname}{References}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{}
+\rhead{}
+\chead{}
+\renewcommand{\headrulewidth}{0pt}
+
+
+% \usepackage{draftwatermark}
+% \SetWatermarkText{DRAFT}
+% \SetWatermarkScale{1}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\bibliographystyle{unsrt}
+%\pagestyle{empty}
+
+\frontmatter
+
+\begin{minipage}{1.0\textwidth}
+\pagecolor{fc_blue}
+\pagenumbering{gobble}
+
+\vspace{1cm}
+\centering
+\includegraphics[width=2.5in]{Figures/firecares-header-logo_2}
+\noindent\makebox[\linewidth]{\color{white}\rule{.5\paperwidth}{0.6pt}}
+
+\Huge \color{fc_orange} Technical Reference Guide \\
+
+\vspace{0.5cm}
+
+\large{\color{white} Version: 1.5  \hspace{1cm} Compilation Date: \today \\}
+
+\vspace{4cm}
+
+{\Large \em \color{fc_orange}Analyze how fire department resources \\
+are deployed to match a community's risks. \\
+}
+\end{minipage}
+
+
+\frontmatter
+\pagecolor{white}
+
+\newpage
+\hspace{5in}
+\newpage
+
+\pagestyle{fancy}{
+\fancyhf{}
+\fancyhead[]{%
+   \begin{tikzpicture}[overlay, remember picture]%
+   \fill[fc_blue] (current page.north west) rectangle ($(current page.north east)+(0,-.5in)$);
+   \node[anchor=north west, text=white, font=\Large\scshape, minimum size=1in, inner xsep=5mm] at (current page.north west) {};
+   \end{tikzpicture}
+}
+\fancyfoot[C]{
+   \begin{tikzpicture}[overlay, remember picture]%
+   \fill[fc_orange] (current page.south west) rectangle ($(current page.south east)+(0,.5in)$);
+   \node[anchor=south west, text=black, minimum size=.5in] at (current page.south west) {\thepage};
+   \end{tikzpicture}
+}}
+
+
+\fancypagestyle{plain}{
+\fancyhf{}%
+% \fancyfoot[C]{\thepage\ of \pageref{LastPage}}%
+\fancyhead[]{
+   \begin{tikzpicture}[overlay, remember picture]% 
+   \fill[fc_blue] (current page.north west) rectangle ($(current page.north east)+(0,-.5in)$);
+   \node[anchor=north west, text=white, font=\Large\scshape, minimum size=1in, inner xsep=5mm] at (current page.north west) {};
+   \end{tikzpicture}
+}
+\fancyfoot[C]{
+   \begin{tikzpicture}[overlay, remember picture]%
+   \fill[fc_orange] (current page.south west) rectangle ($(current page.south east)+(0,.5in)$);
+   \node[anchor=south west, text=black, minimum size=.5in] at (current page.south west) {\thepage};
+   \end{tikzpicture}
+}}
+
+
+\pagenumbering{roman}
+
+\newpage
+
+\cleardoublepage
+
+
+% \phantomsection
+
+\renewcommand*\contentsname{\color{fc_blue}Contents}
+\tableofcontents
+
+\hypersetup{ 
+    linkcolor=fc_orange,         % moved after \tableofcontents
+    filecolor=fc_orange,      % 
+    urlcolor=fc_orange,           %
+}    
+
+\newpage
+\mainmatter
+
+
+\chapter{FireCARES Scores}
+
+To assess risk and fire department performance, it was important to establish filters that define comparisons between departments. A small rural department does not face the same risks or have the same resources as a major metropolitan department. Therefore, it would be unfair to both departments for that comparison to occur. Currently, department comparison groups are determined by NFPA geographical region (Northeast, South, Midwest, and West) and population protected class (there are 10 NFPA population protected classes).
+
+\section{Community Risk}
+
+
+\section{Fire Department Performance Score}
+
+
+
+\section{Safe Grade}
+
+
+
+
+
+
+
+
+
+
+\chapter{List of Acronyms}
+
+\begin{tabbing}
+\hspace{1.5in} \= \\
+
+DHS \> Department of Homeland Security \\
+ERF \> Effective Response Force \\
+FDID \> Fire Department ID \\
+FEMA \> Federal Emergency Management Agency \\
+IAFC \> International Association of Fire Chiefs \\
+IAFF \> International Association of Fire Fighters \\
+UL FSRI \> UL Firefighter Safety Research Institute \\
+NIST \> National Institute of Standards and Technology  \\
+NFIRS \> National Fire Incident Reporting System \\
+\end{tabbing}
+
+\bibliography{firecares}
+
+\chapter*{Notes}
+
+\end{document}
