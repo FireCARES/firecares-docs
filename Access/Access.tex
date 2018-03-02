@@ -1,0 +1,274 @@
+\documentclass[12pt,oneside]{book}
+\input{commoncommands}
+
+% Rename chapter headings
+\renewcommand{\chaptername}{}
+\renewcommand{\bibname}{References}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{enumitem}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{}
+\rhead{}
+\chead{}
+\renewcommand{\headrulewidth}{0pt}
+
+\newdimen\longline
+\longline=\textwidth\advance\longline-4cm
+
+\def\LayoutTextField#1#2{#2} % override default in hyperref
+
+\def\lbl#1{\hbox to 4cm{#1\dotfill\strut}}%
+\def\labelline#1#2{\lbl{#1}\vbox{\hbox{\TextField[name=#1,width=#2]{\null}}\kern2pt\hrule}}
+
+\def\q#1{\hbox to \hsize{\labelline{#1}{\longline}}\vskip1.4ex}
+
+% \usepackage{draftwatermark}
+% \SetWatermarkText{DRAFT}
+% \SetWatermarkScale{1}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\bibliographystyle{unsrt}
+%\pagestyle{empty}
+
+\frontmatter
+
+\begin{minipage}{1.0\textwidth}
+\pagecolor{fc_blue}
+\pagenumbering{gobble}
+
+\vspace{1cm}
+\centering
+\includegraphics[width=2.5in]{Figures/firecares-header-logo_2}
+\noindent\makebox[\linewidth]{\color{white}\rule{.5\paperwidth}{0.6pt}}
+
+\Huge \color{fc_orange} Managing Access to FireCARES\\
+
+\vspace{0.5cm}
+
+\large{\color{white} Version: 1.5  \hspace{1cm} Compilation Date: \today \\}
+
+\vspace{4cm}
+
+{\Large \em \color{fc_orange}Analyze how fire department resources \\
+are deployed to match a community's risks. \\
+}
+\end{minipage}
+
+
+\frontmatter
+\pagecolor{white}
+
+% \newpage
+% \hspace{5in}
+% \newpage
+
+\pagestyle{fancy}{
+\fancyhf{}
+\fancyhead[]{%
+   \begin{tikzpicture}[overlay, remember picture]%
+   \fill[fc_blue] (current page.north west) rectangle ($(current page.north east)+(0,-.5in)$);
+   \node[anchor=north west, text=white, font=\Large\scshape, minimum size=1in, inner xsep=5mm] at (current page.north west) {};
+   \end{tikzpicture}
+}
+\fancyfoot[C]{
+   \begin{tikzpicture}[overlay, remember picture]%
+   \fill[fc_orange] (current page.south west) rectangle ($(current page.south east)+(0,.5in)$);
+   \node[anchor=south west, text=black, minimum size=.5in] at (current page.south west) {\thepage};
+   \end{tikzpicture}
+}}
+
+
+\fancypagestyle{plain}{
+\fancyhf{}%
+% \fancyfoot[C]{\thepage\ of \pageref{LastPage}}%
+\fancyhead[]{
+   \begin{tikzpicture}[overlay, remember picture]% 
+   \fill[fc_blue] (current page.north west) rectangle ($(current page.north east)+(0,-.5in)$);
+   \node[anchor=north west, text=white, font=\Large\scshape, minimum size=1in, inner xsep=5mm] at (current page.north west) {};
+   \end{tikzpicture}
+}
+\fancyfoot[C]{
+   \begin{tikzpicture}[overlay, remember picture]%
+   \fill[fc_orange] (current page.south west) rectangle ($(current page.south east)+(0,.5in)$);
+   \node[anchor=south west, text=black, minimum size=.5in] at (current page.south west) {\thepage};
+   \end{tikzpicture}
+}}
+
+
+\pagenumbering{roman}
+
+\newpage
+
+\cleardoublepage
+
+
+% \phantomsection
+
+\renewcommand*\contentsname{\color{fc_blue}Contents}
+\tableofcontents
+
+\hypersetup{ 
+    linkcolor=fc_orange,         % moved after \tableofcontents
+    filecolor=fc_orange,      % 
+    urlcolor=fc_orange,           %
+}    
+
+\newpage
+\mainmatter
+
+\chapter{Introduction}
+
+In today's fast changing economy, local government decision makers often alter fire department resources faster than fire service leaders can evaluate the potential
+impact. These whirlwind decisions can leave a community without sufficient resources to respond to emergency calls safely, efficiently, and effectively. The effects of poor
+decision making can have even greater impact on vulnerable populations including the elderly, young children, and people with disabilities. FireCARES -- Community Assessment, Response Evaluation System is an analytical system designed to evaluate community risk and fire department operational performance using data layers in a geographic-based system.
+
+The FireCARES project, funded by FEMA AFG, will raise the bar for the technical discussion of community hazards and risks and the impact of changes to fire department resource levels. There will be two levels of access to FireCARES, open public access and password restricted access. The details of the information visible at the two levels of access are shown below.
+
+\chapter{Public Access}
+
+Features and information available for public access include the following:
+
+\begin{itemize}[noitemsep]
+\item Fire Incidents
+  \begin{itemize}[noitemsep]
+  \item Jurisdiction geopolitical boundary
+  \item Call volume
+    \begin{itemize}[noitemsep]
+    \item 14 years geocoded NFIRS fire data
+    \item 4 years geocoded NFIRS EMS data
+    \end{itemize}
+  \item Census tract geographic layer
+  \end{itemize}
+\item Jurisdiction Summary Description
+  \begin{itemize}[noitemsep]
+  \item Department Type
+  \item NFPA Region
+  \item FDID
+  \item State
+  \item Phone/Fax
+  \item Website link
+  \item Population Protected
+  \item Community Size
+  \item Structure count
+    \begin{itemize}[noitemsep]
+    \item By community/structure hazard level1
+    \item By census tract/structure hazard level
+    \end{itemize}
+  \end{itemize}
+\item Station detail
+  \begin{itemize}[noitemsep]
+  \item Station list/locations
+  \item Apparatus
+  \item Staffing (where available)
+  \item First due area (where available)
+  \item GIS service map – 4, 6, and 8-minute travel times
+  \end{itemize}
+\item Local Department Data Assets (where available)
+  \begin{itemize}[noitemsep]
+  \item Inspection Data
+  \item Hydrants
+  \item First due area by station
+  \end{itemize}
+\clearpage
+\item Community Risk Assessment Scores
+  \begin{itemize}[noitemsep]
+  \item Risk of Fire
+  \begin{itemize}[noitemsep]
+    \item By community / by structure hazard level \footnote{1 Structure hazard level as defined by NFPA 1710~\cite{nfpa_1710}}
+    \item By census tract / by structure hazard level
+  \end{itemize}
+  \item Risk of Fire Spread
+    \begin{itemize}[noitemsep]
+    \item By community / by structure hazard level
+    \item By census tract / by structure hazard level
+    \end{itemize}
+  \item Risk of Death and Injury
+    \begin{itemize}[noitemsep]
+    \item By community / by structure hazard level
+    \item By census tract / by structure hazard level
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+
+\chapter{Login Required Access}
+Features and information available behind login include the following:
+\begin{itemize}[noitemsep]
+\item Interactive Map
+  \begin{itemize}[noitemsep]
+  \item Parcels with attributes (Core Logic)
+  \end{itemize}
+\item Fire Department Performance Score
+  \begin{itemize}[noitemsep]
+  \item Differential in Standard Time button
+  \item Gauge with comparable department score range
+  \item Score by hazard level – filter (low, med, high)
+  \end{itemize}
+\item Safe Grade(s)
+  \begin{itemize}[noitemsep]
+  \item Fire Risk (Comparable Departments)
+  \item Fire Spread (Comparable Departments)
+  \item Death/Injury from Fire (Comparable Departments)
+  \end{itemize}
+\item Station detail
+  \begin{itemize}[noitemsep]
+  \item Apparatus
+  \item Staffing
+  \item Map
+  \item First due area
+  \item GIS service map
+  \end{itemize}
+\item Predicted Outcomes (Calc)
+  \begin{itemize}[noitemsep]
+  \item Actual
+  \item Predicted
+    \begin{itemize}[noitemsep]
+    \item Beyond room
+    \item Beyond floor
+    \item Beyond structure
+    \end{itemize}
+  \item Death and Injuries
+    \begin{itemize}[noitemsep]
+    \item Actual
+    \item Predicted
+    \end{itemize}
+  \end{itemize}
+\item Local Department Data Assets Added
+  \begin{itemize}[noitemsep]
+  \item Inspection Data
+  \item Geographic assets
+  \item GIS Reports
+  \item Consultant Reports
+  \item Other
+  \end{itemize}
+\end{itemize}
+
+\chapter{Login Permissions}
+
+{\bf For Career or Combination Departments, login credentials will be provided to the fire chief, the local union president and/or their designees.}
+
+{\bf For Volunteer Departments, login credentials will be provided to the fire chief or his/her designee.}
+
+{\bf Researchers and/or National Organization Leaders may request login via the website.}
+
+First-time users will go to \href{https://firecares.org}{FireCARES} and click on the login button. The login opening screen will require the name, email address, login username and password. Following entry of these attributes, the user will click the ``login'' icon and be sent for immediate authentication. Upon authentication, authorization will be given and the user will be logged into FireCARES.
+
+Upon initial login, a disclaimer, permissions statement, and accompanying site orientation will begin. These items must be viewed, read, and acknowledged before the user is allowed to proceed. This portion cannot be skipped and will clearly explain the responsibility of a FireCARES user. An ``agree'' icon must be clicked before proceeding to the login template. Subsequent logins will proceed directly to the FireCARES page.
+
+An authenticated user (Chief and/or the local union president) can provide login authority to others in their department as they deem necessary and appropriate, but must keep a record of those authorized. To provide login authority, the Chief and/or local union president will provide a list of eligible emails to FireCARES administration. Upon receipt, logins will be created for each email provided. To minimize logins being shared, a robust password must be implemented upon registration. Changing passwords on 90 day cycles is strongly encouraged but will not initially be required.
+
+
+Upon entering the require credentials, a login username and password will be provided. Each login will launch a disclaimer and permissions statement. These items must be read and acknowledged before the user is allowed to proceed. This portion cannot be skipped and should clearly explain the responsibility as a FireCARES user. An ``agree'' icon must be clicked before proceeding to the login page. To minimize logins being shared, a robust password must be implemented upon
+registration. Changing passwords on 90 day cycles is strongly encouraged but will not initially be required.
+
+
+\bibliography{firecares}
+
+
+\end{document}
