@@ -1,0 +1,289 @@
+\documentclass[12pt,oneside]{book}
+\input{commoncommands}
+
+% Rename chapter headings
+\renewcommand{\chaptername}{}
+\renewcommand{\bibname}{References}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{enumitem}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{}
+\rhead{}
+\chead{}
+\renewcommand{\headrulewidth}{0pt}
+
+\newdimen\longline
+\longline=\textwidth\advance\longline-4cm
+
+\def\LayoutTextField#1#2{#2} % override default in hyperref
+
+\def\lbl#1{\hbox to 4cm{#1\dotfill\strut}}%
+\def\labelline#1#2{\lbl{#1}\vbox{\hbox{\TextField[name=#1,width=#2]{\null}}\kern2pt\hrule}}
+
+\def\q#1{\hbox to \hsize{\labelline{#1}{\longline}}\vskip1.4ex}
+
+% \usepackage{draftwatermark}
+% \SetWatermarkText{DRAFT}
+% \SetWatermarkScale{1}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\bibliographystyle{unsrt}
+%\pagestyle{empty}
+
+\frontmatter
+
+\begin{minipage}{1.0\textwidth}
+\pagecolor{fc_blue}
+\pagenumbering{gobble}
+
+\vspace{1cm}
+\centering
+\includegraphics[width=2.5in]{Figures/firecares-header-logo_2}
+\noindent\makebox[\linewidth]{\color{white}\rule{.5\paperwidth}{0.6pt}}
+
+\Huge \color{fc_orange} FireCARES Data Sets \\
+\LARGE \color{fc_orange} Data Use Agreement 
+
+\vspace{0.5cm}
+
+\large{\color{white} Version: 1.5  \hspace{1cm} Compilation Date: \today \\}
+
+\vspace{4cm}
+
+{\Large \em \color{fc_orange}Analyze how fire department resources \\
+are deployed to match a community's risks. \\
+}
+\end{minipage}
+
+
+\frontmatter
+\pagecolor{white}
+
+% \newpage
+% \hspace{5in}
+% \newpage
+
+\pagestyle{fancy}{
+\fancyhf{}
+\fancyhead[]{%
+   \begin{tikzpicture}[overlay, remember picture]%
+   \fill[fc_blue] (current page.north west) rectangle ($(current page.north east)+(0,-.5in)$);
+   \node[anchor=north west, text=white, font=\Large\scshape, minimum size=1in, inner xsep=5mm] at (current page.north west) {};
+   \end{tikzpicture}
+}
+\fancyfoot[C]{
+   \begin{tikzpicture}[overlay, remember picture]%
+   \fill[fc_orange] (current page.south west) rectangle ($(current page.south east)+(0,.5in)$);
+   \node[anchor=south west, text=black, minimum size=.5in] at (current page.south west) {\thepage};
+   \end{tikzpicture}
+}}
+
+
+\fancypagestyle{plain}{
+\fancyhf{}%
+% \fancyfoot[C]{\thepage\ of \pageref{LastPage}}%
+\fancyhead[]{
+   \begin{tikzpicture}[overlay, remember picture]% 
+   \fill[fc_blue] (current page.north west) rectangle ($(current page.north east)+(0,-.5in)$);
+   \node[anchor=north west, text=white, font=\Large\scshape, minimum size=1in, inner xsep=5mm] at (current page.north west) {};
+   \end{tikzpicture}
+}
+\fancyfoot[C]{
+   \begin{tikzpicture}[overlay, remember picture]%
+   \fill[fc_orange] (current page.south west) rectangle ($(current page.south east)+(0,.5in)$);
+   \node[anchor=south west, text=black, minimum size=.5in] at (current page.south west) {\thepage};
+   \end{tikzpicture}
+}}
+
+
+\pagenumbering{roman}
+
+\newpage
+
+\cleardoublepage
+
+
+% \phantomsection
+
+\renewcommand*\contentsname{\color{fc_blue}Contents}
+\tableofcontents
+
+\hypersetup{ 
+    linkcolor=fc_orange,         % moved after \tableofcontents
+    filecolor=fc_orange,      % 
+    urlcolor=fc_orange,           %
+}    
+
+\newpage
+\mainmatter
+
+\chapter{Acknowledgment}
+
+The Fire$--$Community Assessment Response Evaluation System, known as FireCARES, is a `big data' analytical system providing important information to fire service and community leaders about their local fire department and the risk environment in which firefighters are called to respond. FireCARES includes more than a decade of research on structure fires and related injuries and death, as well as building footprints, housing and mobile home units, public health and census data, and vulnerable populations. FireCARES combines large sets of data from various sources to `tell the story' of a fire department in regard to its risk environment, resource capacity, and overall capability to respond to emergency
+incidents.
+
+FireCARES$--$The Community Assessment/Response Evaluation System was developed through a Partnership of Fire Service Organizations funded by DHS/FEMA Assistance to Firefighters Grants. The same team of researchers, academics, and fire service professionals who conducted the landmark NIST Residential Fireground Experiments (NIST TN 1661)~\cite{NIST:Residential} and the NIST High-Rise Fireground Experiments (NIST TN 1797)~\cite{NIST:HighRise} built FireCARES. FireCARES partners include NIST, the International Association of Fire Chiefs (IAFC), the Metropolitan Fire Chiefs Association, the International Association of Fire Fighters (IAFF), the Commission on Fire Accreditation International (CFAI-Risk), Underwriters Laboratory Firefighter Safety Research Institute (UL FSRI), the Urban Institute, the University of Texas at Austin, and Worcester Polytechnic.
+
+The original datasets contained in FireCARES were procured and are maintained by the team of experts that developed the system. Every fire department in the United States has a dedicated page in FireCARES. Fire Departments regularly contribute additional data to their respective pages expanding the data assets available. Although we make every effort to accurately represent information in FireCARES, source data used in determining performance scores, community assessments and safe grades may at times be inaccurate due to the quality and or quantity of underlying data sources and could adversely affect these metrics. With the continued efforts of data scientist, developers, and fire service experts,
+FireCARES is becoming the premier dataset in the fire service. 
+
+\chapter{Terms of Use}
+
+Terms and Conditions of Use. To request to use data from the FireCARES datasets, users must agree to the terms and conditions (below), and complete the data application
+form. 
+
+The FireCARES team collects the data and maintains the FireCARES Database. Therefore, use of any information from this database must include a prominent credit line. That line is to
+read as follows:
+
+{\em FireCARES: Community Assessment/ Response Evaluation System: The content
+reproduced from the FireCARES Database remains the property of FireCARES and
+contributing fire departments. The FireCARES team and partners are not responsible for any
+claims arising from works based on the original Data, Text, Tables, or Figures.}
+
+{\bf Specific Terms of Agreement:}
+Limited license is granted to use information from the FireCARES Database provided the Requester agrees to the following provisions:
+\begin{enumerate}
+\item Treat the information received from FireCARES as non-public data. The data may never be used by Requester as a basis for legal actions.
+\item Use the information received under the provisions of this Agreement only for not-for profit purposes including research, advocacy, education, or other fire and EMS
+operations related activities supported by not-for-profit organizations.
+\item All Information derived from the FireCARES Database shall remain the full property of the FireCARES Project and shall be so noted in educational material, website
+presentations, and publications produced using FireCARES data.
+\item Warrant that the FireCARES Team and Partner Organizations are not responsible for any claims arising from works based on the original Data, Text, Tables, or Figures.
+\item Indemnify the FireCARES Team and Partner Organizations and their employees and agents from any and all liability, loss, or damage suffered as a result of claims,
+demands, costs, or judgments arising out of use of FireCARES Database.
+\item Requester may not sublease or permit other parities to use FireCARES data without advance written approval of FireCARES.
+\end{enumerate}
+
+The Requester's obligations hereunder shall remain in full force and effect and survive the completion of the Requester's defined project described herein. The terms of this
+Agreement shall be binding upon the Requester and any organization through which his/her project is conducted. A copy of any final material produced using FireCARES data must be forwarded to the FireCARES Team. 
+
+\clearpage
+
+If you have read and agree to comply with the above Terms of Use, please provide the following information, sign in the space provide and mail the original with signature to the address below.
+
+*This form may be e-mailed if an electronic signature can be attached to the document. \\
+
+\begin{Form}
+\q{Print Full Name:}
+
+\q{Signature:}
+
+\q{Date:}
+
+\q{Mailing Address:}
+
+\q{City and State:}
+
+\q{Zip Code:}
+
+\q{Phone:}
+
+\q{Email}
+
+\q{Organization(s):}
+
+\end{Form}
+
+Purpose of Research Hypothesis/Question to be answered:\\
+
+Data format to be used. Please indicate preference as either SAS or STATA format, both data formats include ASCII
+(CSV files): \\
+
+Analysis to be used: \\
+
+Plans for Publication: \\
+
+Project Sponsor: \\
+
+
+\chapter{Contact Information}
+
+Mail or email data use request forms to the address below.
+
+For further assistance in using the FireCARES Data Assets contact:\\
+
+Dr. Lori Moore-Merrell, Project Manager \\
+1750 New York Ave NW \\
+Washington DC 20006 \\
+Lmoore@iaff.org \\
+202-824-1594 \\
+
+
+Tyler Garner, Lead Developer \\
+garnertb@prominentedge.com \\
+434-841-3803 \\
+
+\chapter{Public Use Data List}
+This section includes the lists of data assets available in the FireCARES Database.
+\begin{itemize}[noitemsep]
+\item Fire Incidents
+  \begin{itemize}[noitemsep]
+  \item Jurisdiction geopolitical boundary
+  \item Call volume
+    \begin{itemize}[noitemsep]
+    \item 14 years geocoded NFIRS fire data
+    \item 4 years geocoded NFIRS EMS data
+    \end{itemize}
+  \item Census tract geographic layer
+  \end{itemize}
+\item Jurisdiction Summary Description
+  \begin{itemize}[noitemsep]
+  \item Department Type
+  \item NFPA Region
+  \item FDID
+  \item State
+  \item Phone/Fax
+  \item Website link
+  \item Population Protected
+  \item Community Size
+  \item Structure count
+    \begin{itemize}[noitemsep]
+    \item By community/structure hazard level1
+    \item By census tract/structure hazard level
+    \end{itemize}
+  \end{itemize}
+\item Station detail
+  \begin{itemize}[noitemsep]
+  \item Station list/locations
+  \item Apparatus
+  \item Staffing (where available)
+  \item First due area (where available)
+  \item GIS service map – 4, 6, and 8-minute travel times
+  \end{itemize}
+\item Local Department Data Assets (where available)
+  \begin{itemize}[noitemsep]
+  \item Inspection Data
+  \item Hydrants
+  \item First due area by station
+  \end{itemize}
+\clearpage
+\item Community Risk Assessment Scores
+  \begin{itemize}[noitemsep]
+  \item Risk of Fire
+  \begin{itemize}[noitemsep]
+    \item By community / by structure hazard level \footnote{1 Structure hazard level as defined by NFPA 1710~\cite{nfpa_1710}}
+    \item By census tract / by structure hazard level
+  \end{itemize}
+  \item Risk of Fire Spread
+    \begin{itemize}[noitemsep]
+    \item By community / by structure hazard level
+    \item By census tract / by structure hazard level
+    \end{itemize}
+  \item Risk of Death and Injury
+    \begin{itemize}[noitemsep]
+    \item By community / by structure hazard level
+    \item By census tract / by structure hazard level
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\bibliography{firecares}
+
+
+\end{document}
