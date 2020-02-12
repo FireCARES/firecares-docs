@@ -1,0 +1,115 @@
+\usepackage{times,mathptmx}
+\usepackage[pdftex]{graphicx}
+\usepackage{calc}
+\usepackage{tabularx,ragged2e,booktabs,caption,subcaption}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{tocloft}
+\usepackage{xcolor}
+\usepackage{color,soul}
+\usepackage{amsmath}
+\definecolor{linknavy}{rgb}{0,0,0.50196}
+\definecolor{linkred}{rgb}{1,0,0}
+\definecolor{linkblue}{rgb}{0,0,1}
+\definecolor{darkorange}{rgb}{0.81,0.52,0}
+\definecolor{fc_orange}{rgb}{0.94,0.59,0.14}
+\definecolor{brown}{rgb}{0.56,0.36,0}
+\definecolor{fc_blue}{rgb}{0.27,.36,0.48}
+\usepackage{float}
+\usepackage{graphpap}
+\usepackage{rotating}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{relsize}
+\usepackage{ltablex}
+\usepackage{longtable}
+\usepackage{lscape}
+\usepackage{amssymb}
+\usepackage{makeidx} % Create index at end of document
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography and index in the ToC
+\usepackage{lastpage} % Automatic last page number reference.
+\usepackage[T1]{fontenc}
+\usepackage{enumerate}
+\usepackage{upquote}
+\usepackage{moreverb}
+\usepackage{xfrac}
+\usepackage{cite}
+\usepackage{tikz}
+% \usepackage{subfig}
+% \usepackage{caption}
+\usepackage[toc,page]{appendix}
+\usepackage{notoccite}
+\usepackage{placeins}
+
+\usepackage{titlesec}
+\titleformat{\chapter}[hang] 
+{\color{fc_blue}\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{1em}{}[\titlerule]
+\titlespacing*{\chapter}{0pt}{-30pt}{20pt}
+
+\titleformat*{\section}{\normalfont\Large\bfseries\color{fc_blue}}
+\titleformat*{\subsection}{\normalfont\large\bfseries\color{fc_blue}}
+
+\newcommand{\nopart}{\expandafter\def\csname Parent-1\endcsname{}} % To fix table of contents in pdf.
+
+\usepackage{siunitx}
+\sisetup{
+    detect-all = true,
+    input-decimal-markers = {.},
+    input-ignore = {,},
+    inter-unit-product = \ensuremath{{}\cdot{}},
+    multi-part-units = repeat,
+    number-unit-product = \text{~},
+    per-mode = fraction,
+    separate-uncertainty = true,
+}
+
+\usepackage{listings}
+\usepackage{textcomp}
+\definecolor{lbcolor}{rgb}{0.96,0.96,0.96}
+
+\usepackage[pdftex,
+        colorlinks=true,
+        urlcolor=fc_orange,     % \href{...}{...} external (URL)
+        citecolor=fc_orange,     % citation number colors
+        linkcolor=fc_orange,    % \ref{...} and \pageref{...}
+        pdfproducer={pdflatex},
+        pdfpagemode=UseNone,
+        bookmarksopen=true,
+        plainpages=false,
+        verbose]{hyperref}
+
+\renewcommand{\cftchapfont}{\hypersetup{linkcolor=fc_blue}}
+\renewcommand{\cftsecfont}{\hypersetup{linkcolor=black}}
+\renewcommand{\cftsubsecfont}{\hypersetup{linkcolor=black}}
+\renewcommand{\cftsubsubsecfont}{\hypersetup{linkcolor=black}}
+
+
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9.0in}
+\setlength{\topmargin}{0.in}
+\setlength{\headheight}{0.pt}
+\setlength{\headsep}{0.in}
+\setlength{\parindent}{0.0in}
+\setlength{\itemindent}{0.25in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+% \setlength{\leftmargini}{\parindent} % Controls the indenting of the "bullets" in a list
+\setlength{\cftsecnumwidth}{0.45in}
+\setlength{\cftsubsecnumwidth}{0.5in}
+\setlength{\cftfignumwidth}{0.45in}
+\setlength{\cfttabnumwidth}{0.45in}
+\setlength{\parskip}{1em}
+
+% \newcolumntype{L}{>{\centering\arraybackslash}m{4cm}}
+
+\floatstyle{boxed}
+\newfloat{notebox}{H}{lon}
+\newfloat{warning}{H}{low}
+
+\newenvironment{conditions}
+  {\par\vspace{\abovedisplayskip}\noindent\begin{tabular}{>{$}l<{$} @{${}={}$} l}}
+  {\end{tabular}\par\vspace{\belowdisplayskip}}
