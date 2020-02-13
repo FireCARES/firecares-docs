@@ -123,7 +123,7 @@ are deployed to match a community's risks. \\
 \newpage
 \mainmatter
 
-\chapter{Acknowledgment}
+\chapter{Overview}
 
 The Fire$--$Community Assessment Response Evaluation System, known as FireCARES, is a `big data' analytical system providing important information to fire service and community leaders about their local fire department and the risk environment in which firefighters are called to respond. FireCARES includes more than a decade of research on structure fires and related injuries and death, as well as building footprints, housing and mobile home units, public health and census data, and vulnerable populations. FireCARES combines large sets of data from various sources to `tell the story' of a fire department in regard to its risk environment, resource capacity, and overall capability to respond to emergency
 incidents.
@@ -134,40 +134,43 @@ The original datasets contained in FireCARES were procured and are maintained by
 
 \chapter{Model Input Data Elements}
 
+This chapter presents the data elements used to to produce both the Fire Department Performance Score and the Community Risk Score found in FireCARES. The two scores generated for FireCARES leverage algorithms developed based on the data elements available in the United States. As new data elements become available or FireCARES is implement in locations with different data elements, the algorithms can be updated based on the best available data.
+
 \section{Performance Score}
 
+Fire data for the performance score is predicated on fire being classified as a structure fire. Outside fires (wildland, car fires, etc.) are currently outside the score of the Performance Score.
 
-\begin{table}[H]
-  \centering
-  \caption{Performance Score Elements}
-  \label{tab:psore_data}
-  \begin{tabular}{lll}
-    \toprule[1.5pt]
-    Data Element          & NFIRS Name      & Usage                         \\
-    \midrule
-    Fire spread category  & fire\_sprd      & Inferring burned area         \\
-    Property use          & prop\_use       & Isolating residential fires   \\
-    Room/building areas   & N/A             & Inferring burned area         \\
-                          &                 &                               \\
-                          &                 &                               \\
-    Parcel hazard level   & N/A             & Determining whether to include stair climb draws \\
-    Fire department       & fd\_id          & Determining which department to score \\
-    Fire location         & N/A             & Determining parcel hazard level \\
-    \bottomrule[1.25pt]
-  \end{tabular}
-  \label{Table:Exp1Interventions}
-\end{table}
+\begin{itemize}
+  \item Fire Department Information
+  \begin{itemize}
+    \item Unique department ID number
+    \item Jurisdiction geopolitical boundary
+  \end{itemize}
+  \item Fire Spread Category (inferring burned area)
+  \begin{itemize}
+    \item NFIRS Name - fire\_sprd
+    \item Alternate: An estimated burned area reported as a first class element would be optimal
+  \end{itemize}
+  \item Room/Building Area (inferring burned area)
+  \begin{itemize}
+    \item Currently a statistical draw from American Housing Survey data, same alternate as Fire Spread could apply here
+  \end{itemize}
+  \item Fire Location (assist in fire spread rates)
+  \item Property Use/Hazard Level (determine hazard level of property and need to include stair climb draws in timing)
+  \begin{itemize}
+    \item NFIRS Name - prop\_use
+  \end{itemize}
+\end{itemize}
 
-Add text on comments.
 
 \clearpage
 
 \section{Risk Model}
-The following data are needed at a fine spatial resolution:
+The following data are strongest at fine spatial resolution. For U.S. data, the resolution is typically at the census tract level.
 
 \begin{itemize}
   \item Population Data
-  \item Population breakdowns (by age, sex, race?, etc.)
+  \item Population Demographics (age, sex, race, education, etc.)
   \item Economic Condition (e.g., household income, employment, etc).
   \item Housing Data
     \begin{itemize}
@@ -190,34 +193,32 @@ The following data are needed at a fine spatial resolution:
 \end{itemize}
 
 
-
-
 \chapter{Existing Public Data Elements }
-This section includes the lists of data assets available in the FireCARES Database.
+This section includes the lists of data assets available in FireCARES for public and fire service use.
 \begin{itemize}[noitemsep]
 \item Fire Incidents
   \begin{itemize}[noitemsep]
   \item Jurisdiction geopolitical boundary
   \item Call volume
     \begin{itemize}[noitemsep]
-    \item 14 years geocoded NFIRS fire data
-    \item 4 years geocoded NFIRS EMS data
+    \item Historical all fire data as a function of year
+    \item Historical all EMS data as a function of year
     \end{itemize}
   \item Census tract geographic layer
   \end{itemize}
 \item Jurisdiction Summary Description
   \begin{itemize}[noitemsep]
-  \item Department Type
-  \item NFPA Region
+  \item Department Type (career, volunteer, combination)
+  \item Geographic Region
   \item FDID
-  \item State
+  \item State or equivalent
   \item Phone/Fax
   \item Website link
   \item Population Protected
   \item Community Size
-  \item Structure count
+  \item Structure count (parcels in community as a function of hazard level)
     \begin{itemize}[noitemsep]
-    \item By community/structure hazard level1
+    \item By community/structure hazard level
     \item By census tract/structure hazard level
     \end{itemize}
   \end{itemize}
@@ -227,12 +228,13 @@ This section includes the lists of data assets available in the FireCARES Databa
   \item Apparatus
   \item Staffing (where available)
   \item First due area (where available)
-  \item GIS service map – 4, 6, and 8-minute travel times
+  \item GIS service map – 4, 6, and 8-minute travel times (calculated)
+  \item Effective Response Force (calculated)
   \end{itemize}
 \item Local Department Data Assets (where available)
   \begin{itemize}[noitemsep]
   \item Inspection Data
-  \item Hydrants
+  \item Hydrant locations
   \item First due area by station
   \end{itemize}
 \end{itemize}
